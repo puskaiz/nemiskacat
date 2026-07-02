@@ -37,6 +37,7 @@ public class MediaController {
         if (k.endsWith(".png")) return MediaType.IMAGE_PNG;
         if (k.endsWith(".webp")) return MediaType.parseMediaType("image/webp");
         if (k.endsWith(".jpg") || k.endsWith(".jpeg")) return MediaType.IMAGE_JPEG;
+        if (k.endsWith(".pdf")) return MediaType.APPLICATION_PDF;
         return MediaType.APPLICATION_OCTET_STREAM;
     }
 }

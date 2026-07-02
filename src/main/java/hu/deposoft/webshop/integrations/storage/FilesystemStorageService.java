@@ -83,6 +83,7 @@ public class FilesystemStorageService implements StorageService {
             case "image/jpeg" -> "jpg";
             case "image/png" -> "png";
             case "image/webp" -> "webp";
+            case "application/pdf" -> "pdf";
             default -> "bin";
         };
     }

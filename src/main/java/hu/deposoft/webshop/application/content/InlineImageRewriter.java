@@ -9,13 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Downloads every {@code wp-content/uploads} inline &lt;img&gt; into content-addressed
- * storage and rewrites its {@code src} to {@code /media/<key>} (CLAUDE.md #8); external
- * images are left untouched. Shared by the blog and content-page importers.
+ * Downloads every {@code wp-content/uploads} reference into content-addressed storage and
+ * rewrites it to {@code /media/<key>} (CLAUDE.md #8): both displayed {@code <img src>} and
+ * linked {@code <a href>} (full-size images, PDFs and other uploaded files). External
+ * references are left untouched. Shared by the blog, page, catalog and workshop imports.
  */
 @Component
 @RequiredArgsConstructor
 public class InlineImageRewriter {
+
+    private static final String UPLOADS_MARKER = "/wp-content/uploads/";
 
     private final ImageFetcher imageFetcher;
     private final StorageService storage;
@@ -27,23 +30,31 @@ public class InlineImageRewriter {
         if (html == null || html.isBlank()) {
             return new Result(html == null ? "" : html, 0, errors);
         }
-        int stored = 0;
         org.jsoup.nodes.Document doc = org.jsoup.Jsoup.parseBodyFragment(html);
         doc.outputSettings().prettyPrint(false);
-        for (org.jsoup.nodes.Element img : doc.select("img[src]")) {
-            String url = img.attr("src");
-            if (!url.contains("/wp-content/uploads/")) {
+        int stored = rewriteAttribute(doc, "img[src]", "src", errors)
+                + rewriteAttribute(doc, "a[href]", "href", errors);
+        return new Result(doc.body().html(), stored, errors);
+    }
+
+    /** Relocate every {@code selector}/{@code attr} value that points at wp-content/uploads. */
+    private int rewriteAttribute(org.jsoup.nodes.Document doc, String selector, String attr,
+                                 List<String> errors) {
+        int stored = 0;
+        for (org.jsoup.nodes.Element el : doc.select(selector)) {
+            String url = el.attr(attr);
+            if (!url.contains(UPLOADS_MARKER)) {
                 continue;
             }
             try {
                 ImageFetcher.FetchedImage fetched = imageFetcher.fetch(url);
                 String key = storage.put(fetched.bytes(), fetched.contentType());
-                img.attr("src", "/media/" + key);
+                el.attr(attr, "/media/" + key);
                 stored++;
             } catch (RuntimeException e) {
-                errors.add("inline image %s: %s".formatted(url, e.getMessage()));
+                errors.add("inline %s %s: %s".formatted(attr, url, e.getMessage()));
             }
         }
-        return new Result(doc.body().html(), stored, errors);
+        return stored;
     }
 }

@@ -37,10 +37,8 @@ public class HttpImageFetcher implements ImageFetcher {
             if (response.statusCode() / 100 != 2) {
                 throw new IllegalStateException("HTTP " + response.statusCode() + " fetching " + url);
             }
-            String contentType = response.headers().firstValue("content-type")
-                    .map(HttpImageFetcher::stripParams)
-                    .filter(ct -> ct.startsWith("image/"))
-                    .orElseGet(() -> contentTypeFromUrl(url));
+            String contentType = resolveContentType(
+                    response.headers().firstValue("content-type").orElse(null), url);
             return new FetchedImage(response.body(), contentType);
         } catch (IOException e) {
             throw new RuntimeException("Failed to fetch image " + url, e);
@@ -48,6 +46,20 @@ public class HttpImageFetcher implements ImageFetcher {
             Thread.currentThread().interrupt();
             throw new RuntimeException("Interrupted fetching image " + url, e);
         }
+    }
+
+    /**
+     * Keep the server's content type when it is a servable asset (an image or a PDF),
+     * otherwise fall back to a guess from the URL extension. Package-private for testing.
+     */
+    static String resolveContentType(String rawHeader, String url) {
+        if (rawHeader != null) {
+            String ct = stripParams(rawHeader);
+            if (ct.startsWith("image/") || ct.equals("application/pdf")) {
+                return ct;
+            }
+        }
+        return contentTypeFromUrl(url);
     }
 
     private static String stripParams(String contentType) {
@@ -67,6 +79,9 @@ public class HttpImageFetcher implements ImageFetcher {
         }
         if (lower.endsWith(".webp")) {
             return "image/webp";
+        }
+        if (lower.endsWith(".pdf")) {
+            return "application/pdf";
         }
         // Default to JPEG (covers .jpg/.jpeg and unknown extensions on the legacy site).
         return "image/jpeg";

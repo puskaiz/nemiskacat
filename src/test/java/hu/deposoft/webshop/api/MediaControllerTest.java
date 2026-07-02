@@ -64,4 +64,15 @@ class MediaControllerTest {
     void unknownKeyReturns404() throws Exception {
         mvc.perform(get("/media/up/doesnotexist.png")).andExpect(status().isNotFound());
     }
+
+    @Test
+    void servesStoredPdfWithPdfContentType() throws Exception {
+        // Linked PDFs (usage guides) pulled in from wp-content/uploads must serve as PDF,
+        // not octet-stream, so the browser opens them inline.
+        String key = storage.put("%PDF-1.4 fake".getBytes(), "application/pdf");
+        org.assertj.core.api.Assertions.assertThat(key).endsWith(".pdf");
+        mvc.perform(get("/media/" + key))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(org.springframework.http.MediaType.APPLICATION_PDF));
+    }
 }
