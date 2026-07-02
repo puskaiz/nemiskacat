@@ -37,9 +37,31 @@
                 </button>
                 <div class="nav-left" id="navMenu">
                     <a href="/termekkategoria/kretafestek-annie-sloan-chalk-paint/">Webshop</a>
+                    <a href="/butorfestes-kezdoknek">Bútorfestés kezdőknek</a>
+                    <div class="nav-item has-dropdown">
+                        <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+                            Rólunk
+                            <svg class="caret" viewBox="0 0 20 20" aria-hidden="true"><path d="m5 8 5 5 5-5"/></svg>
+                        </button>
+                        <div class="nav-dropdown">
+                            <a href="/latvanymuhely">Bolt</a>
+                            <a href="/kapcsolat">Kapcsolat</a>
+                            <a href="/rolunk">Kik vagyunk mi?</a>
+                            <a href="/itt-hallottal-meg-rolunk">Itt hallottál még rólunk</a>
+                        </div>
+                    </div>
+                    <div class="nav-item has-dropdown">
+                        <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+                            Tudástár
+                            <svg class="caret" viewBox="0 0 20 20" aria-hidden="true"><path d="m5 8 5 5 5-5"/></svg>
+                        </button>
+                        <div class="nav-dropdown">
+                            <a href="/blog">Blog</a>
+                            <a href="/butorfestes-otletek">Bútorfestés ötletek</a>
+                            <a href="/gyakran-ismetelt-kerdesek">Gyakran Ismételt Kérdések</a>
+                        </div>
+                    </div>
                     <a href="/workshopok">Workshopok</a>
-                    <a href="/">Tudástár</a>
-                    <a href="/">Színek</a>
                 </div>
             </div>
             <a href="/" aria-label="nemiskacat" class="logo"><img src="/design/assets/logos/nemiskacat-logo-black.png" height="30" alt="nemiskacat"></a>
@@ -84,19 +106,21 @@
                     falfestékek, kellékek és tudás — egy helyen, kézzel válogatva.</p>
             </div>
             <div>
-                <h4>Webshop</h4>
-                <a href="/termekkategoria/kretafestek-annie-sloan-chalk-paint/">Krétafesték</a>
-                <a href="/termekkategoria/falfestek/">Falfestékek</a>
-                <a href="/termekkategoria/eszkozok/">Ecsetek, eszközök</a>
-                <a href="/kosar">Kosár</a>
-                <a href="/fiokom">Fiókom</a>
+                <h4>Oldaltérkép</h4>
+                <a href="/butorfestes-kezdoknek">Bútorfestés kezdőknek</a>
+                <a href="/termekkategoria/kretafestek-annie-sloan-chalk-paint/">Webshop</a>
+                <a href="/rolunk">Rólunk</a>
+                <a href="/workshopok">Workshop</a>
+                <a href="/latvanymuhely">Bolt</a>
+                <a href="/blog">Tudástár</a>
+                <a href="/kapcsolat">Kapcsolat</a>
             </div>
             <div>
-                <h4>Tanulj velünk</h4>
-                <a href="/">Blog</a>
-                <a href="/workshopok">Workshopok</a>
-                <a href="/">Tutorial videók</a>
-                <a href="/">Színkártya</a>
+                <h4>Kiemelt termékeink</h4>
+                <a href="/termekkategoria/kretafestek-annie-sloan-chalk-paint/">Annie Sloan krétafesték</a>
+                <a href="/termekkategoria/szaten-festek-annie-sloan-satin-paint/">Annie Sloan Satin Paint</a>
+                <a href="/termekkategoria/annie-sloan-falfestek/">Annie Sloan falfesték</a>
+                <a href="/termekkategoria/iron-orchid-designs-termekek/">IOD bútordekoráció</a>
             </div>
             <div>
                 <h4>Elérhetőség</h4>
@@ -122,12 +146,17 @@
         </div>
         <div class="foot-bot">
             <span>© 2026 Nemiskacat · Annie Sloan Chalk Paint™ az Annie Sloan Interiors Ltd. védjegye.</span>
+            <span class="foot-legal">
+                <a href="/altalanos-szerzodesi-feltetelek">ÁSZF</a>
+                <a href="/adatvedelem">Adatvédelem</a>
+            </span>
             <span>Készült Magyarországon.</span>
         </div>
     </div>
 </footer>
 
 <th:block th:fragment="island-script">
+    <script src="/js/nav.js"></script>
     <script src="/js/cart.js"></script>
 </th:block>
 

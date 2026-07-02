@@ -54,6 +54,22 @@ nav.main { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0
 .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: inherit; }
 .nav-toggle svg { width: 22px; height: 22px; }
 
+/* Header dropdown menus (Rólunk, Tudástár). Desktop: hover/focus opens; JS adds
+   click/tap via .open (for touch + keyboard). */
+.nav-item.has-dropdown { position: relative; display: inline-flex; align-items: center; }
+.nav-trigger { background: none; border: none; cursor: pointer; font-family: inherit; font-size: var(--nk-fs-body-s); font-weight: 500; color: inherit; display: inline-flex; align-items: center; gap: 5px; padding: 0; }
+.nav-trigger .caret { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.6; transition: transform var(--nk-duration-1) var(--nk-ease); }
+.nav-trigger:hover { border-bottom: 2px solid var(--nk-yellow-50); }
+.nav-dropdown { position: absolute; top: 100%; left: 0; min-width: 230px; background: var(--nk-white); border: 1px solid var(--nk-border); box-shadow: var(--nk-shadow-sm); border-radius: 12px; padding: 6px 0; display: none; z-index: 60; }
+.nav-item.has-dropdown:hover .nav-dropdown,
+.nav-item.has-dropdown:focus-within .nav-dropdown,
+.nav-dropdown.open { display: block; }
+.nav-item.has-dropdown:hover .caret,
+.nav-item.has-dropdown:focus-within .caret,
+.nav-trigger[aria-expanded="true"] .caret { transform: rotate(180deg); }
+.nav-dropdown a { display: block; padding: 9px var(--nk-space-5); white-space: nowrap; font-size: var(--nk-fs-body-s); font-weight: 500; }
+.nav-dropdown a:hover { background: var(--nk-bg-muted); border-bottom: none; }
+
 /* ── Footer ────────────────────────────────────
    Warm gray background per brand spec (SYSTEM.md §Layout rules). */
 footer { background: var(--nk-bg-tone); color: var(--nk-fg); padding: var(--nk-space-8) 0 28px; margin-top: var(--nk-space-8); }
@@ -68,7 +84,10 @@ footer { background: var(--nk-bg-tone); color: var(--nk-fg); padding: var(--nk-s
 .contact-row img { flex-shrink: 0; opacity: .85; }
 .contact-row a, .contact-row span { color: var(--nk-fg-muted); }
 .contact-row a:hover { color: var(--nk-fg); border-bottom: 2px solid var(--nk-yellow-50); }
-.foot-bot { display: flex; justify-content: space-between; align-items: center; font-size: var(--nk-fs-caption); color: var(--nk-fg-subtle); padding-top: 24px; }
+.foot-bot { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: var(--nk-fs-caption); color: var(--nk-fg-subtle); padding-top: 24px; }
+.foot-legal { display: inline-flex; gap: 18px; }
+.foot-legal a { color: var(--nk-fg-muted); }
+.foot-legal a:hover { color: var(--nk-fg); border-bottom: 2px solid var(--nk-yellow-50); }
 
 /* ── Buttons ──────────────────────────────────── */
 
@@ -856,6 +875,15 @@ aside.sum .ship { font-size: var(--nk-fs-caption); color: var(--nk-fg-subtle); m
     }
     .nav-left.open { display: flex; }
     .nav-left a { width: 100%; text-align: left; padding: 13px var(--nk-space-6); font-size: 16px; }
+
+    /* Dropdowns collapse into inline, tap-to-expand submenus on mobile. */
+    .nav-left .nav-item.has-dropdown { display: block; width: 100%; position: static; }
+    .nav-left .nav-trigger { width: 100%; justify-content: space-between; padding: 13px var(--nk-space-6); font-size: 16px; }
+    .nav-left .nav-dropdown { position: static; display: none; min-width: 0; border: none; border-radius: 0; box-shadow: none; padding: 0; background: var(--nk-bg-muted); }
+    .nav-left .nav-item.has-dropdown:hover .nav-dropdown,
+    .nav-left .nav-item.has-dropdown:focus-within .nav-dropdown { display: none; }
+    .nav-left .nav-dropdown.open { display: block; }
+    .nav-left .nav-dropdown a { padding: 12px calc(var(--nk-space-6) + 14px); font-size: 15px; }
 }
 
 @media (max-width: 520px) {
