@@ -26,7 +26,7 @@ public class BlogController {
         return sidebarQuery.sidebar();
     }
 
-    @GetMapping("/blog")
+    @GetMapping({"/blog", "/blog/"})
     public String list(@RequestParam(defaultValue = "1") int page, Model model) {
         model.addAttribute("list", blog.publishedList(page));
         return "blog/list";
