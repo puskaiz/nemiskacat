@@ -3,8 +3,9 @@
 *.env
 !.env.example
 
-# Local uploaded images (filesystem StorageService root) — runtime data, not source
-data/
+# Local uploaded images (filesystem StorageService root) — runtime data, not source.
+# Anchored to the repo root so it does NOT match source dirs like admin-ui/src/data/.
+/data/
 
 # Maven
 target/
