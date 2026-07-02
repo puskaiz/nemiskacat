@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Kosár — Nemiskacat')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="wrap">
+    <div class="head-row">
+        <div>
+            <div class="eyebrow">A te válogatásod</div>
+            <h1>A <em>kosaram</em></h1>
+        </div>
+        <div class="right" th:unless="${cart.items.isEmpty()}"
+             th:text="${cart.count} + ' termék · összesen ' + ${cart.totalFormatted}">3 termék</div>
+    </div>
+
+    <p th:if="${unavailableMessage}" class="notice warn" role="alert" th:text="${unavailableMessage}">Néhány termék időközben elérhetetlenné vált.</p>
+
+    <p th:if="${cart.items.isEmpty()}" class="empty-cart">A kosarad üres. <a href="/" style="text-decoration:underline">Tovább böngészek</a></p>
+
+    <div th:unless="${cart.items.isEmpty()}" class="cart-grid">
+        <div class="items">
+            <div class="chead"><span>Termék</span><span>Ár</span><span>Db</span><span>Összesen</span></div>
+            <div class="item" th:each="item : ${cart.items}" th:attr="data-item-id=${item.id}"
+                 th:classappend="${unavailableRemaining != null and unavailableRemaining.containsKey(item.sku)} ? ' unavailable'">
+                <div class="who">
+                    <a class="pim" th:href="${item.productUrl}">
+                        <img th:if="${item.imageUrl}" th:src="${item.imageUrl}" th:alt="${item.name}">
+                    </a>
+                    <div>
+                        <h3 style="margin:0"><a th:href="${item.productUrl}" th:text="${item.name}">Termék</a></h3>
+                        <div class="meta" th:if="${item.variantLabel}" th:text="${item.variantLabel}">120 ml</div>
+                        <span class="unavail-badge"
+                              th:if="${unavailableRemaining != null and unavailableRemaining.containsKey(item.sku)}"
+                              th:text="${unavailableRemaining.get(item.sku) > 0}
+                                       ? ('Már csak ' + ${unavailableRemaining.get(item.sku)} + ' elérhető')
+                                       : 'Jelenleg elfogyott'">Már csak 1 elérhető</span>
+                        <button class="remove" type="button" th:attr="data-item-id=${item.id}">Eltávolítom</button>
+                    </div>
+                </div>
+                <div class="price" th:text="${item.unitPriceFormatted}">3 700 Ft</div>
+                <div>
+                    <span class="qty">
+                        <input type="number" min="0" class="qinput" th:value="${item.quantity}" th:attr="data-item-id=${item.id}">
+                    </span>
+                </div>
+                <div class="total" th:text="${item.lineTotalFormatted}">7 400 Ft</div>
+            </div>
+            <div class="items-foot">
+                <a href="/">← Tovább böngészek</a>
+            </div>
+        </div>
+
+        <aside class="sum">
+            <h2>Összegzés</h2>
+            <div class="row"><span>Részösszeg</span><span th:text="${cart.totalFormatted}">7 400 Ft</span></div>
+            <div class="row"><span>Szállítás</span><span>a pénztárnál</span></div>
+            <div class="row total"><span>Fizetendő</span><strong th:text="${cart.totalFormatted}">7 400 Ft</strong></div>
+            <a class="btn btn-primary btn-block" href="/penztar" style="margin-top:14px">
+                Tovább a pénztárhoz
+                <svg class="ic" viewBox="0 0 20 20"><path d="M3 10h14m-5-5 5 5-5 5"/></svg>
+            </a>
+            <div class="ship">A szállítási díjat a pénztárnál számoljuk ki.</div>
+        </aside>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<th:block th:replace="~{fragments/layout :: island-script}"></th:block>
+</body>
+</html>

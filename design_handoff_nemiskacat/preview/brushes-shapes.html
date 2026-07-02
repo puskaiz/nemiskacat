@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="_card.css" />
+<style>
+  .card { padding: 0; overflow: hidden; border: none; background: transparent; }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    background: var(--nk-white);
+    border: 1px solid var(--nk-border);
+    border-radius: var(--nk-radius-md);
+    overflow: hidden;
+    min-height: 220px;
+  }
+  .cell {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .cell + .cell { border-left: 1px solid var(--nk-border); }
+  .cell img { max-width: 92%; max-height: 130px; }
+  .name {
+    font-family: var(--nk-font-serif);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--nk-fg-subtle);
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="grid">
+      <div class="cell">
+        <img src="../assets/brushes/brush-short-yellow.png" alt="short brush" />
+        <div class="name">Short — multi-line</div>
+      </div>
+      <div class="cell">
+        <img src="../assets/brushes/brush-circle-yellow.png" alt="circle brush" />
+        <div class="name">Circle — one word</div>
+      </div>
+      <div class="cell">
+        <img src="../assets/brushes/brush-square-black.png" alt="square stamp" style="max-height: 110px;" />
+        <div class="name">Square — stamp</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

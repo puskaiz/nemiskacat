@@ -1,0 +1,15 @@
+{
+  "title": "Közösségi linkek",
+  "subtitle": "A fejlécben és a blog oldalsávban megjelenő linkek",
+  "colNetwork": "Hálózat",
+  "colUrl": "URL",
+  "colActions": "Műveletek",
+  "add": "Új link",
+  "save": "Mentés",
+  "edit": "Szerkesztés",
+  "delete": "Törlés",
+  "moveUp": "Fel",
+  "moveDown": "Le",
+  "saved": "Mentve",
+  "saveFailed": "A mentés nem sikerült"
+}

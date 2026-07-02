@@ -1,0 +1,10 @@
+{
+  "title": "Categories",
+  "subtitle": "Group products in the store",
+  "colName": "Category",
+  "colSlug": "Slug",
+  "empty": "No categories to display.",
+  "back": "Back to categories",
+  "notFound": "Category not found.",
+  "readOnlyNote": "Product categories come from the WooCommerce import (read-only for now)."
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Fiókom — Nemiskacat')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="wrap page-pad">
+    <div class="account-header">
+        <div>
+            <div class="eyebrow">Üdv, <span th:text="${customer.fullName()}">Vásárló</span>!</div>
+            <h1>Fiókom</h1>
+        </div>
+        <form th:action="@{/fiokom/kilepes}" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <button type="submit" class="btn btn-secondary logout-btn">Kilépés</button>
+        </form>
+    </div>
+
+    <div class="account-body">
+        <section class="account-card">
+            <div class="account-card__head">Adataim</div>
+            <p class="account-card__detail muted" th:text="${customer.email}">email</p>
+        </section>
+
+        <section class="account-card">
+            <div class="account-card__head">Rendeléseim</div>
+            <p th:if="${orders.isEmpty()}" class="muted">Még nincs rendelésed.</p>
+            <div class="table-wrap" th:unless="${orders.isEmpty()}">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Rendelés</th>
+                            <th>Állapot</th>
+                            <th>Végösszeg</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="o : ${orders}">
+                            <td th:text="${o.orderNumber()}">NK-1</td>
+                            <td th:text="${o.status}">NEW</td>
+                            <td th:text="${o.totalGrossHuf} + ' Ft'">8 250 Ft</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<th:block th:replace="~{fragments/layout :: island-script}"></th:block>
+</body>
+</html>

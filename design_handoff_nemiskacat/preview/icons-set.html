@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="_card.css" />
+<style>
+  .card { padding: 0; overflow: hidden; border: none; background: transparent; }
+  .stage {
+    background: var(--nk-white);
+    border: 1px solid var(--nk-border);
+    border-radius: var(--nk-radius-md);
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px 8px;
+  }
+  .ic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .ic img { width: 56px; height: 56px; object-fit: contain; }
+  .ic .n {
+    font-family: var(--nk-font-serif);
+    font-size: 11px;
+    color: var(--nk-fg-muted);
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="stage">
+      <div class="ic"><img src="../assets/icons/brush.png" alt="" /><div class="n">brush</div></div>
+      <div class="ic"><img src="../assets/icons/paint-can.png" alt="" /><div class="n">paint-can</div></div>
+      <div class="ic"><img src="../assets/icons/cart.png" alt="" /><div class="n">cart</div></div>
+      <div class="ic"><img src="../assets/icons/house.png" alt="" /><div class="n">house</div></div>
+      <div class="ic"><img src="../assets/icons/warehouse.png" alt="" /><div class="n">warehouse</div></div>
+      <div class="ic"><img src="../assets/icons/delivery.png" alt="" /><div class="n">delivery</div></div>
+      <div class="ic"><img src="../assets/icons/workshop.png" alt="" /><div class="n">workshop</div></div>
+      <div class="ic"><img src="../assets/icons/email.png" alt="" /><div class="n">email</div></div>
+      <div class="ic"><img src="../assets/icons/phone.png" alt="" /><div class="n">phone</div></div>
+      <div class="ic"><img src="../assets/icons/eye.png" alt="" /><div class="n">eye</div></div>
+      <div class="ic"><img src="../assets/icons/idea.png" alt="" /><div class="n">idea</div></div>
+    </div>
+  </div>
+</body>
+</html>

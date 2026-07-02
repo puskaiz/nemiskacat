@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="_card.css" />
+<style>
+  .card { padding: 0; overflow: hidden; border: none; background: transparent; }
+  .stage {
+    background: var(--nk-gray-20);
+    padding: 28px 32px;
+    border-radius: var(--nk-radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .label {
+    font-family: var(--nk-font-serif);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--nk-fg-subtle);
+  }
+  .slogan {
+    font-family: 'Caveat', cursive;
+    font-weight: 500;
+    color: var(--nk-fg);
+    line-height: 1.0;
+  }
+  .big { font-size: 56px; }
+  .med { font-size: 36px; }
+  .sm  { font-size: 22px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="stage">
+      <div class="label">Caveat · script — slogans &amp; CTAs only</div>
+      <div class="slogan big">Az ecsetet Te fogod,</div>
+      <div class="slogan med">a többit mi adjuk!</div>
+      <div class="slogan sm">Elolvasom · Megyek inspirálódni</div>
+    </div>
+  </div>
+</body>
+</html>

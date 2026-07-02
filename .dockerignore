@@ -1,0 +1,21 @@
+# Keep the build context small and reproducible. The Dockerfile only COPYs
+# pom.xml, libs/, src/ and admin-ui/, but excluding heavy/irrelevant paths here
+# speeds up the context upload and avoids leaking local state.
+.git/
+.claude/
+target/
+**/target/
+node_modules/
+admin-ui/node_modules/
+admin-ui/dist/
+admin-ui/node/
+src/main/resources/static/admin/
+data/
+design_handoff_nemiskacat/
+design_handoff_nemiskacat_admin/
+docs/poc/
+scripts/
+.env
+*.env
+!.env.example
+.DS_Store

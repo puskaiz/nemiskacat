@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${product.title})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="wrap">
+    <nav class="crumbs" aria-label="Navigációs útvonal">
+        <a href="/">Webshop</a>
+        <span class="crumbs__sep" aria-hidden="true"></span>
+        <span th:each="cat, it : ${product.categories}">
+            <a th:href="'/termekkategoria/' + ${cat.slug} + '/'" th:text="${cat.name}">Kategória</a>
+            <span class="crumbs__sep" aria-hidden="true" th:if="${!it.last}"></span>
+        </span>
+        <span class="crumbs__sep" aria-hidden="true"></span>
+        <b th:text="${product.name}">Terméknév</b>
+    </nav>
+
+    <article class="ph">
+        <!-- ── Gallery ─────────────────────────────────────────────────── -->
+        <div class="gallery">
+            <div class="imgw">
+                <button class="arrow prev" type="button" aria-label="Előző kép" th:if="${product.images.size() > 1}">
+                    <svg viewBox="0 0 20 20"><path d="M12 4l-6 6 6 6"/></svg>
+                </button>
+                <button class="arrow next" type="button" aria-label="Következő kép" th:if="${product.images.size() > 1}">
+                    <svg viewBox="0 0 20 20"><path d="M8 4l6 6-6 6"/></svg>
+                </button>
+                <span class="counter" th:if="${product.images.size() > 1}">1 / 1</span>
+                <img th:if="${!product.images.isEmpty()}" th:src="${product.images[0].url}"
+                     th:alt="${product.images[0].alt} ?: ${product.name}">
+            </div>
+            <div class="thumbs" th:if="${product.images.size() > 1}">
+                <button th:each="img, it : ${product.images}" type="button" th:classappend="${it.index == 0} ? 'on'">
+                    <img th:src="${img.url}" th:attr="data-full=${img.url}" th:alt="${img.alt} ?: ${product.name}" loading="lazy">
+                </button>
+            </div>
+        </div>
+
+        <!-- ── Product info ─────────────────────────────────────────────── -->
+        <div class="info">
+            <div class="eyebrow"
+                 th:text="${product.categories.isEmpty()} ? 'Nemiskacat' : ${product.categories[0].name}">Nemiskacat</div>
+            <h1 th:text="${product.name}">Terméknév</h1>
+
+            <!-- workshop: pick a session (date + seats), then qty + book -->
+            <div th:if="${product.workshop}">
+                <div class="sessions" th:if="${!product.sessions.isEmpty()}">
+                    <button class="session-row" type="button" th:each="s : ${product.sessions}"
+                            th:attr="data-sku=${s.sku}, data-status=${s.seatsText}"
+                            th:disabled="${!s.orderable}">
+                        <span class="srow-top">
+                            <span class="date" th:text="${s.dateLabel}">jún. 21. szombat 10:00</span>
+                            <span class="pr" th:if="${s.priceFormatted}" th:text="${s.priceFormatted}">15 000 Ft</span>
+                        </span>
+                        <span class="seats"
+                              th:classappend="${s.soldOut} ? 'out' : (${s.low} ? 'low' : 'in')"
+                              th:text="${s.seatsText}">3 szabad hely</span>
+                    </button>
+                </div>
+                <p class="muted" th:if="${product.sessions.isEmpty()}">
+                    Jelenleg nincs meghirdetett időpont. Nézz vissza hamarosan!</p>
+                <p class="stock-line" data-variant-status style="display:none"></p>
+                <div class="cta-row" th:if="${!product.sessions.isEmpty()}">
+                    <div class="qty">
+                        <button type="button" data-qty-dec aria-label="Kevesebb">−</button>
+                        <span data-qty>1</span>
+                        <button type="button" data-qty-inc aria-label="Több">+</button>
+                    </div>
+                    <button class="btn btn-primary btn-pill-cta" type="button" id="addToCart">
+                        Jelentkezem
+                        <svg class="ic" viewBox="0 0 20 20"><path d="M3 10h14m-5-5 5 5-5 5"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- simple product: single price + qty + add -->
+            <div th:if="${!product.workshop and product.singleVariant}" th:with="v=${product.variants[0]}">
+                <!-- the default in-stock label is omitted; only special states are shown -->
+                <p class="stock-line" th:if="${v.statusText != 'Készleten'}"
+                   th:classappend="${v.orderable} ? 'in' : 'out'" th:text="${v.statusText}">Elfogyott</p>
+                <p class="ph-price" th:if="${v.priceFormatted}">
+                    <span th:if="${v.onSale}" class="ph-price__was" th:text="${v.regularFormatted}">4 500 Ft</span>
+                    <span class="ph-price__now" th:text="${v.priceFormatted}">3 700 Ft</span>
+                </p>
+                <div class="cta-row">
+                    <div class="qty">
+                        <button type="button" data-qty-dec aria-label="Kevesebb">−</button>
+                        <span data-qty>1</span>
+                        <button type="button" data-qty-inc aria-label="Több">+</button>
+                    </div>
+                    <button class="btn btn-primary btn-pill-cta" type="button" id="addToCart"
+                            th:if="${v.orderable and v.sku != null}" th:attr="data-sku=${v.sku}">
+                        Kosárba teszem
+                        <svg class="ic" viewBox="0 0 20 20"><path d="M3 10h14m-5-5 5 5-5 5"/></svg>
+                    </button>
+                </div>
+                <p class="muted" th:if="${v.sku}">Cikkszám: <span th:text="${v.sku}">SKU</span></p>
+            </div>
+
+            <!-- variable product: pick a variant, then qty + add -->
+            <div th:if="${!product.workshop and !product.singleVariant}">
+                <div class="sizes">
+                    <button class="sz" type="button" th:each="v : ${product.variants}"
+                            th:attr="data-sku=${v.sku}, data-price=${v.priceFormatted}, data-status=${v.statusText}"
+                            th:disabled="${!v.orderable or v.sku == null}">
+                        <span class="lbl" th:text="${v.label} ?: ${v.sku}">120 ml</span>
+                        <span class="pr" th:text="${v.priceFormatted}">3 700 Ft</span>
+                    </button>
+                </div>
+                <p class="stock-line" data-variant-status style="display:none"></p>
+                <div class="cta-row">
+                    <div class="qty">
+                        <button type="button" data-qty-dec aria-label="Kevesebb">−</button>
+                        <span data-qty>1</span>
+                        <button type="button" data-qty-inc aria-label="Több">+</button>
+                    </div>
+                    <button class="btn btn-primary btn-pill-cta" type="button" id="addToCart">
+                        Kosárba teszem
+                        <svg class="ic" viewBox="0 0 20 20"><path d="M3 10h14m-5-5 5 5-5 5"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- perks: CSS diamond bullet — no Unicode glyphs -->
+            <div class="perks">
+                <div class="p">
+                    <span class="perk-icon" aria-hidden="true"><img src="/design/assets/icons/delivery.png" width="22" height="22" alt=""></span>
+                    <div><b>Ingyenes szállítás</b>39 000 Ft felett</div>
+                </div>
+                <div class="p">
+                    <span class="perk-icon" aria-hidden="true"><img src="/design/assets/icons/paint-can.png" width="22" height="22" alt=""></span>
+                    <div><b>Csiszolás nélkül tapad</b>fa, fém, lamináltra is</div>
+                </div>
+                <div class="p">
+                    <span class="perk-icon" aria-hidden="true"><img src="/design/assets/icons/workshop.png" width="22" height="22" alt=""></span>
+                    <div><b>Heti workshop</b>élőben kipróbálhatod</div>
+                </div>
+                <div class="p">
+                    <span class="perk-icon" aria-hidden="true"><img src="/design/assets/icons/brush.png" width="22" height="22" alt=""></span>
+                    <div><b>Hivatalos forgalmazó</b>Annie Sloan Interiors Ltd.</div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- ── Description tabs ──────────────────────────────────────────── -->
+    <section class="desc">
+        <div class="tabs-nav">
+            <button class="tab on" type="button" data-tab="leiras">Termékleírás</button>
+            <button class="tab" type="button" data-tab="szallitas">Szállítás és átvétel</button>
+        </div>
+
+        <div class="tab-panel on" data-panel="leiras">
+            <div th:if="${product.descriptionHtml}" th:utext="${product.descriptionHtml}"></div>
+            <p class="muted" th:if="${product.descriptionHtml == null}">
+                Ehhez a termékhez még nincs részletes leírás.</p>
+        </div>
+
+        <div class="tab-panel" data-panel="szallitas">
+            <ul>
+                <li><b>Ingyenes GLS szállítás</b> 39 000 Ft feletti kosárértéknél.</li>
+                <li><b>GLS futárszolgálat:</b> 850–1 700 Ft, csomagsúly szerint.</li>
+                <li><b>Magyar Posta házhozszállítás:</b> 7 900 Ft.</li>
+                <li><b>Személyes átvétel</b> a biatorbágyi üzletben: ingyenes.</li>
+            </ul>
+        </div>
+    </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script type="application/ld+json" th:utext="${product.jsonLd}"></script>
+<th:block th:replace="~{fragments/layout :: island-script}"></th:block>
+<script src="/js/gallery.js"></script>
+<script src="/js/product.js"></script>
+</body>
+</html>

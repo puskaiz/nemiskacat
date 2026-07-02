@@ -1,0 +1,16 @@
+{ "search": "Keresés…", "searchLong": "Keresés rendelések, termékek, emberek közt…", "signOut": "Kijelentkezés", "profileSettings": "Profilbeállítások",
+  "changePassword": "Jelszó módosítása", "addPasskey": "Passkey hozzáadása",
+  "notificationsMenu": "Értesítések", "loading": "Betöltés…", "empty": "Nincs megjeleníthető elem",
+  "errorTitle": "Hiba történt", "retry": "Újra", "save": "Mentés", "cancel": "Mégse",
+  "notifications": {
+    "success": "Siker",
+    "error": "Hiba (státuszkód: {{statusCode}})",
+    "undoable": "{{seconds}} másodperc a visszavonásig",
+    "createSuccess": "Sikeresen létrehozva",
+    "createError": "Hiba a létrehozáskor (státuszkód: {{statusCode}})",
+    "editSuccess": "Sikeresen mentve",
+    "editError": "Hiba a mentéskor (státuszkód: {{statusCode}})",
+    "deleteSuccess": "Sikeresen törölve",
+    "deleteError": "Hiba a törléskor (státuszkód: {{statusCode}})",
+    "importProgress": "Importálás: {{processed}}/{{total}}"
+  } }

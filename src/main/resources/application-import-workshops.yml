@@ -1,0 +1,4 @@
+# Import profile: one-shot workshop import (WorkshopImportRunner), no web server.
+spring:
+  main:
+    web-application-type: none

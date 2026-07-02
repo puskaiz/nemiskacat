@@ -1,0 +1,14 @@
+{
+  "dashboard": "Dashboard",
+  "sell": "Sell", "orders": "Orders", "products": "Products",
+  "allProducts": "All products", "categories": "Categories", "coupons": "Coupons",
+  "customers": "Customers", "shipping": "Shipping",
+  "workshopsGroup": "Workshops", "workshops": "Workshops", "allWorkshops": "All workshops",
+  "instructors": "Instructors", "bookings": "Bookings",
+  "analytics": "Analytics", "reports": "Reports",
+  "content": "Content", "blog": "Blog", "allBlog": "All posts", "tags": "Tags", "pages": "Pages", "sidebarBlocks": "Sidebar blocks", "settings": "Settings",
+  "social": "Social links",
+  "blogCategories": "Blog categories",
+  "blogTags": "Blog tags",
+  "productTags": "Product tags"
+}

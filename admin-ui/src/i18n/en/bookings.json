@@ -1,0 +1,23 @@
+{
+  "title": "Bookings",
+  "subtitle": "24 upcoming bookings",
+  "filterType": "Type: all",
+  "filterEvent": "Event: all",
+  "export": "Export attendees",
+  "new": "Add booking",
+  "tabUpcoming": "Upcoming",
+  "tabWaitlist": "Waitlist",
+  "tabAttended": "Attended",
+  "tabCancelled": "Cancelled",
+  "ref": "Ref",
+  "attendee": "Attendee",
+  "workshop": "Workshop / session",
+  "seats": "Seats",
+  "paid": "Paid",
+  "status": "Status",
+  "status_paid": "Confirmed",
+  "status_upcoming": "Upcoming",
+  "status_waitlist": "Waitlist",
+  "status_attended": "Attended",
+  "status_cancelled": "Cancelled"
+}

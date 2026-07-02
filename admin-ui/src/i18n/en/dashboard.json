@@ -1,0 +1,12 @@
+{
+  "greet": "Good morning, {{name}}",
+  "subtitle": "Here's what's happening at nemiskacat today.",
+  "range": "Last 7 days",
+  "kpiRevenue": "Today's revenue",
+  "kpiNewOrders": "New orders",
+  "kpiSeats": "Workshop seats sold",
+  "kpiLowStock": "Low stock",
+  "recentOrders": "Recent orders",
+  "all": "All",
+  "upcoming": "Upcoming workshops"
+}

@@ -1,0 +1,17 @@
+{
+  "title": "Customers",
+  "subtitle": "{{total}} customers",
+  "search": "Search by name or email",
+  "name": "Name",
+  "email": "Email",
+  "role": "Role",
+  "status": "Status",
+  "registered": "Registered",
+  "roleCustomer": "Customer",
+  "roleSubscriber": "Subscriber",
+  "roleAdmin": "Admin",
+  "statusActive": "Active",
+  "statusDisabled": "Disabled",
+  "emptyTitle": "No results",
+  "emptyBody": "Try adjusting your search criteria."
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Foglalások",
+  "subtitle": "24 közelgő foglalás",
+  "filterType": "Típus: összes",
+  "filterEvent": "Esemény: összes",
+  "export": "Résztvevők exportálása",
+  "new": "Foglalás hozzáadása",
+  "tabUpcoming": "Közelgő",
+  "tabWaitlist": "Várólista",
+  "tabAttended": "Részt vett",
+  "tabCancelled": "Lemondva",
+  "ref": "Ref",
+  "attendee": "Résztvevő",
+  "workshop": "Workshop / alkalom",
+  "seats": "Helyek",
+  "paid": "Paid",
+  "status": "Állapot",
+  "status_paid": "Megerősítve",
+  "status_upcoming": "Közelgő",
+  "status_waitlist": "Várólista",
+  "status_attended": "Részt vett",
+  "status_cancelled": "Mégsemmel"
+}

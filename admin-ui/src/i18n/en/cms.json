@@ -1,0 +1,12 @@
+{
+  "title": "Pages",
+  "subtitle": "nemiskacat.hu content",
+  "new": "New page",
+  "colTitle": "Title",
+  "colUrl": "URL",
+  "colLangs": "Languages",
+  "colUpdated": "Updated",
+  "colStatus": "Status",
+  "status_active": "Published",
+  "status_pending": "Draft"
+}

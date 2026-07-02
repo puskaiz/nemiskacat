@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('nemiskacat — bútorfestékek, festési kellékek')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main>
+
+    <!-- ═══════════════════════════════════════════════════════
+         HERO — static, fully cacheable (CLAUDE.md #2)
+         No session/cart/user data here.
+    ════════════════════════════════════════════════════════════ -->
+    <section class="nk-hero-section">
+        <div class="wrap--hero">
+            <div class="nk-hero">
+
+                <!-- Left band: eyebrow + slogan + lead + CTAs -->
+                <div class="nk-hero__left">
+                    <div class="nk-hero__eyebrow">Nemiskacat · Bútorfestés egyszerűen</div>
+
+                    <!-- Caveat slogan on short-yellow brush -->
+                    <div class="nk-hero__brush-wrap">
+                        <img src="/design/assets/brushes/brush-short-yellow.png"
+                             class="nk-hero__brush-img"
+                             alt=""
+                             aria-hidden="true">
+                        <div class="nk-hero__brush-text">Az ecsetet Te fogod,<br>a többit mi adjuk!</div>
+                    </div>
+
+                    <p class="nk-hero__lead">
+                        Annie Sloan krétafestékek, Fusion ásványfestékek, Polyvine lakkok,
+                        IOD bútordekor — minden, ami egy bátrabb otthonhoz kell.
+                    </p>
+
+                    <div class="nk-hero__cta-row">
+                        <!-- Primary pill CTA — links to the Webshop category (same href as nav) -->
+                        <a href="/termekkategoria/kretafestek-annie-sloan-chalk-paint/"
+                           class="btn btn-primary nk-hero__cta-primary">
+                            <img src="/design/assets/icons/brush.png" alt="" width="22" height="22">
+                            Megyek a webshopba
+                        </a>
+                        <!-- Ghost link -->
+                        <a href="/workshopok" class="btn-link nk-hero__cta-ghost">Inspirálódom</a>
+                    </div>
+                </div>
+
+                <!-- Right band: lifestyle photo placeholder + circular badge -->
+                <div class="nk-hero__right" aria-hidden="true">
+                    <div class="nk-hero__photo-placeholder"></div>
+
+                    <!-- Circular "Újdonság!" brush badge -->
+                    <div class="nk-hero__badge">
+                        <img src="/design/assets/brushes/brush-circle-yellow.png"
+                             alt="" width="140" height="140">
+                        <div class="nk-hero__badge-text">Újdonság!</div>
+                    </div>
+
+                    <div class="nk-hero__photo-tag">Annie Sloan · őszi paletta</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         CATEGORY GRID — real data from home.categories
+    ════════════════════════════════════════════════════════════ -->
+    <section class="nk-cat-section">
+        <div class="wrap">
+            <!-- sectionHeader(eyebrow, title, sub) fragment -->
+            <div th:replace="~{fragments/components :: sectionHeader(
+                'Festékek webshop',
+                'Minden, ami a jó alkotáshoz kell.',
+                'Bútorfestékek, falfestékek, waxok, tartós Polyvine lakkok, Iron Orchid Designs bútordekor, Zibra ecsetek — gondosan válogatva, raktárról szállítva.'
+            )}"></div>
+
+            <div class="nk-cat-grid">
+                <a class="nk-cat-tile"
+                   th:each="cat : ${home.categories}"
+                   th:href="${cat.url}">
+                    <img class="nk-cat-tile__icon"
+                         th:src="'/design/assets/icons/' + ${cat.iconKey} + '.png'"
+                         th:alt="${cat.name}"
+                         width="64" height="64">
+                    <div class="nk-cat-tile__body">
+                        <div class="nk-cat-tile__name" th:text="${cat.name}">Kategória</div>
+                        <div class="nk-cat-tile__count"
+                             th:text="${cat.productCount} + ' termék'">0 termék</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         FEATURED PRODUCTS — real data from home.featured
+    ════════════════════════════════════════════════════════════ -->
+    <section class="nk-featured-section">
+        <div class="wrap">
+            <div th:replace="~{fragments/components :: sectionHeader(
+                'Kiemelt termékek',
+                'A bátrabb otthonok kedvencei.',
+                null
+            )}"></div>
+
+            <div class="nk-prod-grid">
+                <div th:each="item : ${home.featured}"
+                     th:replace="~{fragments/components :: productCard(${item})}">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         WORKSHOP CARD — real data from home.nextWorkshop (nullable)
+    ════════════════════════════════════════════════════════════ -->
+    <section class="nk-workshop-section">
+        <div class="wrap">
+            <div th:replace="~{fragments/components :: sectionHeader(
+                'Workshopok',
+                'Tanulj velünk — egy nap, egy bútor, sok nevetés.',
+                null
+            )}"></div>
+
+            <!-- Upcoming workshop (nextWorkshop != null) -->
+            <div class="nk-workshop" th:if="${home.nextWorkshop != null}">
+                <div class="nk-workshop__img" aria-hidden="true"></div>
+                <div class="nk-workshop__body">
+                    <h3 class="nk-workshop__name" th:text="${home.nextWorkshop.name}">Workshop neve</h3>
+                    <div class="nk-workshop__date" th:text="${home.nextWorkshop.nextDateLabel}">Dátum</div>
+                    <p class="nk-workshop__desc">
+                        Gyere el, próbáld ki a krétafestéket, és alkotj valami egyedit
+                        saját kezűleg. A nyersanyagokat mi adjuk, a kreativitást Te hozod.
+                    </p>
+                    <div class="nk-workshop__meta">
+                        <div class="nk-workshop__meta-item">
+                            <img src="/design/assets/icons/house.png" alt="" width="28" height="28">
+                            <span>Budapest, Műhely</span>
+                        </div>
+                        <div class="nk-workshop__meta-item">
+                            <img src="/design/assets/icons/workshop.png" alt="" width="28" height="28">
+                            <span>Max. 12 fő</span>
+                        </div>
+                        <div class="nk-workshop__meta-item">
+                            <img src="/design/assets/icons/idea.png" alt="" width="28" height="28">
+                            <span>Anyagok mindenkinek</span>
+                        </div>
+                    </div>
+                    <div class="nk-workshop__price-row">
+                        <span class="nk-workshop__price" th:text="${home.nextWorkshop.priceFromFormatted}">0 Ft</span>
+                        <a class="btn btn-primary" th:href="${home.nextWorkshop.url}">Regisztrálj</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fallback: no upcoming workshop -->
+            <div class="nk-workshop nk-workshop--soon" th:if="${home.nextWorkshop == null}">
+                <div class="nk-workshop__img" aria-hidden="true"></div>
+                <div class="nk-workshop__body">
+                    <h3 class="nk-workshop__name">Hamarosan</h3>
+                    <p class="nk-workshop__desc">
+                        Jelenleg nincs meghirdetett workshop, de hamarosan újra indulnak a foglalkozások.
+                        Kövesd az oldalunkat, vagy iratkozz fel a hírlevélre, hogy elsőként értesülj.
+                    </p>
+                    <a href="/workshopok" class="btn btn-secondary">Workshopok</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         STORY ROW — static editorial teaser
+         No blog backend yet — generic on-brand copy linking to /workshopok.
+    ════════════════════════════════════════════════════════════ -->
+    <section class="nk-story-section">
+        <div class="wrap">
+            <div class="nk-story">
+
+                <!-- Photo placeholder (left) -->
+                <div class="nk-story__img" aria-hidden="true">
+                    <div class="nk-story__img-tag">Műhely · Budapest</div>
+                </div>
+
+                <!-- Editorial text (right) -->
+                <div class="nk-story__text">
+                    <div class="nk-story__eyebrow">Bútorfelújítás tudásanyagok</div>
+                    <h2 class="nk-story__title">Bútordíszítés házilag. Így újítsd fel a bútoraidat kreatívan.</h2>
+                    <p class="nk-story__para">
+                        Idővel a legszebb asztalka vagy szekrény is megkopik, de az is lehet,
+                        hogy az ízlésünk változott meg, vagy éppen a lakás berendezését cseréltük le —
+                        és az adott darab már nem illik a meglévő bútoraink közé.
+                    </p>
+                    <p class="nk-story__para">
+                        Blogcikkek és részletes tutorial videók bútorfestés, bútorfelújítás és
+                        lakberendezés témában. Kéthetente új cikkel és workshopajánlóval várunk.
+                    </p>
+                    <a href="/workshopok" class="btn btn-secondary">Megyek olvasni, inspirálódni</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         TESTIMONIAL — static Annie Sloan founder quote
+    ════════════════════════════════════════════════════════════ -->
+    <section class="nk-testimonial-section">
+        <div class="wrap">
+            <div class="nk-quote">
+                <blockquote class="nk-quote__text">
+                    Annie Sloan festéke lehetővé teszi a spontaneitást, az alkotás szabadságát
+                    és az egyszerű kivitelezést. Bátorságot és magabiztosságot ad, rájössz,
+                    hogy bármit át lehet festeni! Egy új világ tárul fel előtted, büszkeséggel
+                    tölt el, amit alkotsz és teremtesz.
+                </blockquote>
+                <div class="nk-quote__who">— Annie Sloan · márkaalapító</div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<th:block th:replace="~{fragments/layout :: island-script}"></th:block>
+</body>
+</html>

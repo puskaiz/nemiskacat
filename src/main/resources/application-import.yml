@@ -1,0 +1,4 @@
+# Import profile: one-shot catalog import (CatalogImportRunner), no web server.
+spring:
+  main:
+    web-application-type: none

@@ -1,0 +1,16 @@
+{
+  "title": "Riportok",
+  "subtitle": "Áttekintés · ez a hónap",
+  "range": "Ez a hónap",
+  "export": "Exportálás",
+  "revenue": "Bevétel",
+  "orders": "Rendelések",
+  "aov": "Átlagos rendelés",
+  "workshopRevenue": "Workshop bevétel",
+  "salesOverTime": "Bevétel az időben",
+  "topProducts": "Top termékek",
+  "byChannel": "Csatornánként",
+  "channelWeb": "Web",
+  "channelPos": "POS",
+  "channelWorkshop": "Workshop"
+}

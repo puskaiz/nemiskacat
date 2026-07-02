@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${category.name})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="wrap">
+    <nav class="crumbs" aria-label="Navigáció">
+        <a href="/">Webshop</a>
+        <span class="crumbs__sep" aria-hidden="true"></span>
+        <b th:text="${category.name}">Kategória</b>
+    </nav>
+
+    <div class="title-row title-row--solo">
+        <div>
+            <div class="eyebrow">Nemiskacat</div>
+            <h1 th:text="${category.name}">Kategória</h1>
+        </div>
+    </div>
+
+    <div class="toolbar">
+        <span th:text="${category.items.size()} + ' termék ezen az oldalon'">24 termék</span>
+    </div>
+
+    <div class="nk-prod-grid">
+        <th:block th:each="item : ${category.items}">
+            <div th:replace="~{fragments/components :: productCard(${item})}"></div>
+        </th:block>
+    </div>
+
+    <nav class="pagin" th:if="${category.totalPages > 1}" th:with="base='/termekkategoria/' + ${category.slug} + '/?page='" aria-label="Lapozó">
+        <a class="pagin__prev" th:if="${category.page > 1}" th:href="${base} + ${category.page - 1}" aria-label="Előző oldal"><span class="pagin__caret pagin__caret--prev" aria-hidden="true"></span></a>
+        <a th:each="n : ${#numbers.sequence(1, category.totalPages)}" th:href="${base} + ${n}">
+            <span th:classappend="${n == category.page} ? 'on'" th:text="${n}">1</span>
+        </a>
+        <a class="pagin__next" th:if="${category.page < category.totalPages}" th:href="${base} + ${category.page + 1}" aria-label="Következő oldal"><span class="pagin__caret pagin__caret--next" aria-hidden="true"></span></a>
+    </nav>
+
+    <section class="category-desc" th:if="${category.descriptionHtml}">
+        <h2 th:text="${category.name}">Kategória</h2>
+        <div th:utext="${category.descriptionHtml}"></div>
+    </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<th:block th:replace="~{fragments/layout :: island-script}"></th:block>
+</body>
+</html>

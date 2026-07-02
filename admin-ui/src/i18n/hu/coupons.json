@@ -1,0 +1,11 @@
+{
+  "title": "Kuponok",
+  "subtitle": "5 aktív · 1 inaktív",
+  "new": "Új kupon",
+  "code": "Kód",
+  "type": "Típus",
+  "value": "Érték",
+  "usage": "Felhasználás",
+  "expires": "Lejár",
+  "status": "Állapot"
+}

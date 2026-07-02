@@ -1,0 +1,16 @@
+{
+  "title": "Reports",
+  "subtitle": "Overview · this month",
+  "range": "This month",
+  "export": "Export",
+  "revenue": "Revenue",
+  "orders": "Orders",
+  "aov": "Average order",
+  "workshopRevenue": "Workshop revenue",
+  "salesOverTime": "Revenue over time",
+  "topProducts": "Top products",
+  "byChannel": "By channel",
+  "channelWeb": "Web",
+  "channelPos": "POS",
+  "channelWorkshop": "Workshop"
+}

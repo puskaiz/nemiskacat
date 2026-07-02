@@ -1,0 +1,11 @@
+{
+  "title": "Instructors",
+  "subtitle": "The people who run the workshops",
+  "new": "New instructor",
+  "name": "Instructor",
+  "specialty": "Specialty",
+  "workshopCount": "Workshops",
+  "status": "Status",
+  "status_active": "Active",
+  "status_leave": "On leave"
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${post.seoTitle})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="wrap nk-blog-post">
+    <nav class="crumbs" aria-label="Navigáció">
+        <a href="/">Webshop</a>
+        <span class="crumbs__sep" aria-hidden="true"></span>
+        <a href="/blog">Blog</a>
+        <span class="crumbs__sep" aria-hidden="true"></span>
+        <b th:text="${post.title}">Cikk</b>
+    </nav>
+
+    <div class="nk-blog-layout">
+        <div class="nk-blog-content">
+            <article class="nk-blog-article">
+                <header class="nk-blog-article__header">
+                    <div class="nk-blog-article__cats" th:if="${!post.categories.isEmpty()}">
+                        <a th:each="c : ${post.categories}"
+                           th:href="@{'/blog/kategoria/' + ${c.slug}}"
+                           th:text="${c.name}"
+                           class="nk-blog-article__cat">kategória</a>
+                    </div>
+                    <h1 class="nk-blog-article__title" th:text="${post.title}">Cím</h1>
+                    <p class="nk-blog-article__date"
+                       th:if="${post.publishedDate}"
+                       th:text="${#temporals.format(post.publishedDate, 'yyyy. MM. dd.')}">dátum</p>
+                </header>
+
+                <div class="nk-blog-article__body nk-rich" th:utext="${post.bodyHtml}">törzs</div>
+            </article>
+
+            <section class="nk-blog-recommended" th:if="${!post.recommendedProducts.isEmpty()}">
+                <h2>Ajánlott termékek</h2>
+                <div class="nk-prod-grid">
+                    <th:block th:each="item : ${post.recommendedProducts}">
+                        <div th:replace="~{fragments/components :: productCard(${item})}"></div>
+                    </th:block>
+                </div>
+            </section>
+        </div>
+        <th:block th:replace="~{fragments/blog :: sidebar}"></th:block>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<th:block th:replace="~{fragments/layout :: island-script}"></th:block>
+
+<!-- Article JSON-LD for schema.org — at end of body, outside head fragment scope. -->
+<script type="application/ld+json" th:utext="${post.jsonLd}"></script>
+</body>
+</html>

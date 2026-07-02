@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<!--
+  Shared component fragments. Consumed by homepage (C2) and listing pages (D2).
+  No session data here — cards carry only the island hook (data-add-to-cart),
+  which cart.js wires at runtime from /api/session (CLAUDE.md #2).
+
+  Fragments defined here:
+    productCard(item)               — FeaturedProducts-style card from CategoryItemView
+    sectionHeader(eyebrow,title,sub) — eyebrow + 48px serif title + sub paragraph
+-->
+<body>
+
+<!--
+  productCard(item)
+  Renders a single product card.
+  item: CategoryItemView(name, url, imageUrl, priceFromFormatted, available, addable, sku)
+    - imageUrl null → tinted placeholder with centred paint-swatch circle
+    - addable true  → add-to-cart button with data-add-to-cart="${item.sku}" (wired by cart.js)
+    - addable false → "Megnézem" link to item.url
+    - available false → card is dimmed and shows an "Elfogyott" overlay badge
+-->
+<div th:fragment="productCard(item)"
+     class="nk-product-card"
+     th:classappend="${!item.available} ? 'nk-product-card--unavailable'">
+
+    <!-- Image area — square; entire area links to product page -->
+    <a class="nk-product-card__image-link" th:href="${item.url}" tabindex="-1" aria-hidden="true">
+        <div class="nk-product-card__image-wrap">
+            <!-- Real product image -->
+            <img th:if="${item.imageUrl}"
+                 class="nk-product-card__image"
+                 th:src="${item.imageUrl}"
+                 th:alt="${item.name}"
+                 loading="lazy">
+
+            <!-- Placeholder: tinted background + circular paint-swatch -->
+            <div th:unless="${item.imageUrl}" class="nk-product-card__placeholder" aria-hidden="true">
+                <div class="nk-product-card__swatch"></div>
+            </div>
+
+            <!-- Unavailability badge -->
+            <span th:unless="${item.available}" class="nk-product-card__badge nk-product-card__badge--out">Elfogyott</span>
+        </div>
+    </a>
+
+    <!-- Card body -->
+    <div class="nk-product-card__body">
+        <!-- Product name — Lora 16px/500 -->
+        <a class="nk-product-card__name-link" th:href="${item.url}">
+            <div class="nk-product-card__name" th:text="${item.name}">Terméknév</div>
+        </a>
+
+        <!-- Price + CTA row -->
+        <div class="nk-product-card__footer">
+            <!-- Price — Caveat 26px -->
+            <span class="nk-product-card__price"
+                  th:if="${item.priceFromFormatted}"
+                  th:text="${item.priceFromFormatted}">6 800 Ft</span>
+
+            <!-- Add-to-cart button (simple, in-stock product): wired by cart.js -->
+            <button th:if="${item.addable}"
+                    type="button"
+                    class="nk-product-card__cta add"
+                    th:attr="data-add-to-cart=${item.sku}"
+                    th:aria-label="'Kosárba: ' + ${item.name}">Kosárba</button>
+
+            <!-- "Megnézem" link for variable / out-of-stock products -->
+            <a th:unless="${item.addable}"
+               class="nk-product-card__cta nk-product-card__cta--view"
+               th:href="${item.url}"
+               th:aria-label="'Megnézem: ' + ${item.name}">Megnézem</a>
+        </div>
+    </div>
+</div>
+
+<!--
+  sectionHeader(eyebrow, title, sub)
+  Renders the standard marketing-section heading block.
+    eyebrow — short uppercase caption (e.g. "Kiemelt termékek")
+    title   — main heading, serif 48px (e.g. "A bátrabb otthonok kedvencei.")
+    sub     — optional sub-paragraph; omitted when null/blank
+-->
+<div th:fragment="sectionHeader(eyebrow, title, sub)" class="nk-section-header">
+    <div class="nk-section-header__eyebrow" th:text="${eyebrow}">Eyebrow</div>
+    <h2 class="nk-section-header__title" th:text="${title}">Cím</h2>
+    <p  class="nk-section-header__sub"
+        th:if="${sub != null and !#strings.isEmpty(sub)}"
+        th:text="${sub}">Leírás</p>
+</div>
+
+<!--
+  socialIcons(links)
+  Renders per-network SVG icon links for facebook/instagram/youtube/pinterest.
+  Unknown networks fall back to a text label so the link is never invisible.
+  links: List<SocialLinkView(network, url)>
+-->
+<div th:fragment="socialIcons(links)" class="nk-social-icons" th:if="${links != null and !links.isEmpty()}">
+    <a th:each="l : ${links}" th:href="${l.url}" target="_blank" rel="noopener"
+       th:title="${l.network}" th:aria-label="${l.network}" class="nk-social-icons__link">
+        <svg th:if="${l.network == 'facebook'}" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M13 22v-8h2.7l.4-3H13V9.1c0-.9.3-1.5 1.6-1.5H16V5c-.3 0-1.2-.1-2.2-.1-2.2 0-3.8 1.4-3.8 3.9V11H7.3v3H10v8h3z"/></svg>
+        <svg th:if="${l.network == 'instagram'}" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 7.4A4.6 4.6 0 1 0 12 16.6 4.6 4.6 0 0 0 12 7.4zm0 7.6A3 3 0 1 1 12 9a3 3 0 0 1 0 6zm4.8-7.8a1.1 1.1 0 1 1-1.1-1.1 1.1 1.1 0 0 1 1.1 1.1zM20 7.6c-.1-1.4-.4-2.6-1.4-3.6S16.4 2.7 15 2.6C13.6 2.5 10.4 2.5 9 2.6c-1.4.1-2.6.4-3.6 1.4S3.7 5.6 3.6 7c-.1 1.4-.1 4.6 0 6 .1 1.4.4 2.6 1.4 3.6s2.2 1.3 3.6 1.4c1.4.1 4.6.1 6 0 1.4-.1 2.6-.4 3.6-1.4s1.3-2.2 1.4-3.6c.1-1.4.1-4.6 0-6zM18 14.6a3 3 0 0 1-1.7 1.7c-1.2.5-3.9.4-5.1.4s-4 .1-5.1-.4a3 3 0 0 1-1.7-1.7c-.5-1.2-.4-3.9-.4-5.1s-.1-4 .4-5.1A3 3 0 0 1 6.9 4.7c1.2-.5 3.9-.4 5.1-.4s4-.1 5.1.4A3 3 0 0 1 18.8 6.4c.5 1.2.4 3.9.4 5.1s.1 4-.4 5.1z"/></svg>
+        <svg th:if="${l.network == 'youtube'}" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M23 7.5a3 3 0 0 0-2.1-2.1C19 4.9 12 4.9 12 4.9s-7 0-8.9.5A3 3 0 0 0 1 7.5C.5 9.4.5 12 .5 12s0 2.6.5 4.5a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5A3 3 0 0 0 23 16.5c.5-1.9.5-4.5.5-4.5s0-2.6-.5-4.5zM9.8 15.3V8.7l5.7 3.3-5.7 3.3z"/></svg>
+        <svg th:if="${l.network == 'pinterest'}" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2C6.5 2 4 5.9 4 9.2c0 2 .8 3.8 2.4 4.4.3.1.5 0 .5-.3l.2-.8c.1-.2 0-.3-.1-.5-.4-.5-.7-1.2-.7-2.1 0-2.7 2-5.1 5.3-5.1 2.9 0 4.5 1.8 4.5 4.1 0 3.1-1.4 5.7-3.4 5.7-1.1 0-1.9-.9-1.7-2 .3-1.3.9-2.8.9-3.7 0-.9-.5-1.6-1.4-1.6-1.1 0-2 1.2-2 2.7 0 1 .3 1.6.3 1.6l-1.4 5.7c-.4 1.7-.1 3.9 0 4.1 0 .1.2.2.3.1.1-.1 1.6-2 2.1-3.8l.8-3c.4.8 1.5 1.4 2.7 1.4 3.6 0 6-3.2 6-7.6C18.9 4.9 15.9 2 12 2z"/></svg>
+        <svg th:if="${l.network == 'tiktok'}" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+        <span class="nk-social-icons__label"
+              th:if="${!#lists.contains({'facebook','instagram','youtube','pinterest','tiktok'}, l.network)}"
+              th:text="${l.network}"></span>
+    </a>
+</div>
+
+</body>
+</html>

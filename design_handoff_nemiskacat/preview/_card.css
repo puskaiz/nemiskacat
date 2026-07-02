@@ -1,0 +1,46 @@
+/* Shared chrome for design-system preview cards.
+   Each card is rendered at ~700px wide inside the Design System tab.
+   We keep the card itself minimal (white card with hairline) so the
+   content speaks. */
+@import url('../colors_and_type.css');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #faf8f5;
+  font-family: var(--nk-font-serif);
+  color: var(--nk-fg);
+  -webkit-font-smoothing: antialiased;
+}
+
+.card {
+  width: 700px;
+  box-sizing: border-box;
+  padding: 28px 32px;
+  background: var(--nk-white);
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.card.tone { background: var(--nk-gray-20); }
+.card.tight { padding: 20px 24px; gap: 12px; }
+
+.row { display: flex; align-items: center; gap: 16px; }
+.row.wrap { flex-wrap: wrap; }
+.col { display: flex; flex-direction: column; gap: 8px; }
+
+.label {
+  font-family: var(--nk-font-serif);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--nk-fg-subtle);
+}
+
+.mono {
+  font-family: var(--nk-font-mono);
+  font-size: 11px;
+  color: var(--nk-fg-muted);
+}

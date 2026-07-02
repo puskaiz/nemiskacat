@@ -1,0 +1,17 @@
+{
+  "title": "Vásárlók",
+  "subtitle": "{{total}} vásárló",
+  "search": "Keresés név vagy e-mail alapján",
+  "name": "Név",
+  "email": "E-mail",
+  "role": "Szerep",
+  "status": "Állapot",
+  "registered": "Regisztrált",
+  "roleCustomer": "Vásárló",
+  "roleSubscriber": "Feliratkozó",
+  "roleAdmin": "Admin",
+  "statusActive": "Aktív",
+  "statusDisabled": "Letiltva",
+  "emptyTitle": "Nincs találat",
+  "emptyBody": "Próbálj módosítani a keresési feltételeken."
+}

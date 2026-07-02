@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="_card.css" />
+<style>
+  .card { padding: 0; overflow: hidden; border: none; background: transparent; }
+  .stage {
+    background: var(--nk-white);
+    border: 1px solid var(--nk-border);
+    border-radius: var(--nk-radius-md);
+    padding: 26px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .lbl { font-family: var(--nk-font-serif); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--nk-fg-subtle); }
+  .field {
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .field label { font-family: var(--nk-font-serif); font-size: 13px; color: var(--nk-fg-muted); }
+  .field input, .field select {
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    padding: 12px 14px;
+    border-radius: var(--nk-radius-sm);
+    border: 1px solid var(--nk-border);
+    background: var(--nk-white);
+    color: var(--nk-fg);
+    outline: none;
+    transition: border-color 220ms;
+  }
+  .field input:focus { border-color: var(--nk-yellow-60); box-shadow: 0 0 0 3px var(--nk-yellow-40); }
+  .field.focused input { border-color: var(--nk-yellow-60); box-shadow: 0 0 0 3px var(--nk-yellow-40); }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .check { display: flex; align-items: center; gap: 10px; font-family: 'Lora', serif; font-size: 14px; }
+  .check .box {
+    width: 18px; height: 18px;
+    border: 1.5px solid var(--nk-black); border-radius: 4px;
+    background: var(--nk-yellow-50);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Caveat', cursive; font-size: 16px;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="stage">
+      <div class="row">
+        <div class="field">
+          <label>Neved</label>
+          <input value="Kovács Anna" />
+        </div>
+        <div class="field focused">
+          <label>E-mail cím</label>
+          <input value="anna@nemiskacat.hu" />
+        </div>
+      </div>
+      <div class="field">
+        <label>Mi érdekel téged?</label>
+        <select><option>Bútorfestés alapok</option></select>
+      </div>
+      <div class="check">
+        <div class="box">✓</div>
+        <span>Iratkozz fel a hírlevelünkre — kéthetente egy levél.</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

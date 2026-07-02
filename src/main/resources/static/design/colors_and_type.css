@@ -1,0 +1,279 @@
+/* ============================================================
+   Nemiskacat — Color & Type Tokens
+   Source: Nemiskacat brandkép.pdf, stíluskép.pdf
+   Attribútumok: Időtálló · Rendezett · Letisztult
+   ============================================================ */
+
+/* ---------- Webfonts ----------
+   Both Lora and Caveat load locally from brand-supplied files in /fonts/. */
+
+@font-face {
+  font-family: 'Lora';
+  src: url('/fonts/Lora-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lora';
+  src: url('/fonts/Lora-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lora';
+  src: url('/fonts/Lora-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lora';
+  src: url('/fonts/Lora-MediumItalic.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lora';
+  src: url('/fonts/Lora-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lora';
+  src: url('/fonts/Lora-SemiBoldItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lora';
+  src: url('/fonts/Lora-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lora';
+  src: url('/fonts/Lora-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Caveat';
+  src: url('/fonts/Caveat-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Caveat';
+  src: url('/fonts/Caveat-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Caveat';
+  src: url('/fonts/Caveat-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Caveat';
+  src: url('/fonts/Caveat-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ---------------------------------------------------------
+     Primary palette
+     Bountiful white, warm grays for structure, black for text,
+     yellow as the single accent.
+     --------------------------------------------------------- */
+  --nk-white:        #ffffff;     /* Fehér */
+  --nk-black:        #000000;     /* Fekete */
+
+  /* Warm gray — softly breaks up white, never cold or blue */
+  --nk-gray-10:      #F4F0ED;     /* lightest — surface tint        */
+  --nk-gray-20:      #EBE6E3;     /* Meleg szürke 20 (brand canon)  */
+  --nk-gray-30:      #D6CFC9;     /* hairlines, dividers, disabled  */
+  --nk-gray-50:      #8C857F;     /* secondary text                 */
+  --nk-gray-70:      #4A4540;     /* tertiary surfaces              */
+
+  /* Yellow — the single accent. Warm, friendly, never neon. */
+  --nk-yellow-40:    #F5DFA1;     /* Sárga 40 — soft fill           */
+  --nk-yellow-50:    #ECC45D;     /* Sárga 50 — primary accent      */
+  --nk-yellow-60:    #C39E36;     /* Sárga 60 — pressed / strong    */
+
+  /* ---------------------------------------------------------
+     Semantic colors — refer to palette tokens above.
+     --------------------------------------------------------- */
+  --nk-bg:                 var(--nk-white);
+  --nk-bg-elevated:        var(--nk-white);
+  --nk-bg-muted:           var(--nk-gray-10);
+  --nk-bg-tone:            var(--nk-gray-20);     /* the warm-gray section background */
+  --nk-bg-accent:          var(--nk-yellow-50);   /* yellow tone background */
+  --nk-bg-accent-soft:     var(--nk-yellow-40);
+
+  --nk-fg:                 var(--nk-black);
+  --nk-fg-muted:           var(--nk-gray-70);
+  --nk-fg-subtle:          var(--nk-gray-50);
+  --nk-fg-on-accent:       var(--nk-black);       /* black text on yellow */
+  --nk-fg-on-dark:         var(--nk-white);
+
+  --nk-border:             var(--nk-gray-30);
+  --nk-border-strong:      var(--nk-black);
+
+  --nk-accent:             var(--nk-yellow-50);
+  --nk-accent-hover:       var(--nk-yellow-60);
+  --nk-accent-soft:        var(--nk-yellow-40);
+
+  /* ---------------------------------------------------------
+     Typography
+     - Lora: serif headings + body. Time-tested, classic, the
+       brand's primary voice. Note the s-k ligature in the logo.
+     - Caveat: handwritten layer. Used for CTAs and slogans on
+       brushstroke shapes — never for paragraphs.
+     --------------------------------------------------------- */
+  --nk-font-serif:    'Lora', 'Source Serif Pro', Georgia, 'Times New Roman', serif;
+  --nk-font-script:   'Caveat', 'Bradley Hand', 'Segoe Script', cursive;
+  --nk-font-mono:     ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Type scale — px values lifted directly from the brand book */
+  --nk-fs-section:    40px;   /* Section eyebrow */
+  --nk-fs-h1:         64px;
+  --nk-fs-h2:         48px;
+  --nk-fs-h3:         40px;
+  --nk-fs-h4:         32px;
+  --nk-fs-h5:         25px;
+  --nk-fs-body-l:     20px;
+  --nk-fs-body:       16px;
+  --nk-fs-body-s:     14px;
+  --nk-fs-caption:    12px;
+
+  --nk-lh-tight:      1.1;
+  --nk-lh-snug:       1.25;
+  --nk-lh-normal:     1.5;
+  --nk-lh-relaxed:    1.65;
+
+  --nk-tracking-tight:   -0.01em;
+  --nk-tracking-normal:  0;
+  --nk-tracking-wide:    0.06em;   /* small caps eyebrows */
+
+  /* ---------------------------------------------------------
+     Spacing — generous, breathing room dominates.
+     Bountiful whitespace is brand canon.
+     --------------------------------------------------------- */
+  --nk-space-1:   4px;
+  --nk-space-2:   8px;
+  --nk-space-3:   12px;
+  --nk-space-4:   16px;
+  --nk-space-5:   24px;
+  --nk-space-6:   32px;
+  --nk-space-7:   48px;
+  --nk-space-8:   64px;
+  --nk-space-9:   96px;
+  --nk-space-10: 128px;
+
+  /* Radii — softly rounded, never sharp, never pill-extreme. */
+  --nk-radius-sm:   6px;
+  --nk-radius-md:  12px;
+  --nk-radius-lg:  20px;
+  --nk-radius-xl:  32px;
+  --nk-radius-pill: 999px;
+
+  /* Shadows — sparing, soft, warm. No hard drop shadows. */
+  --nk-shadow-xs: 0 1px 2px rgba(60, 50, 40, 0.06);
+  --nk-shadow-sm: 0 2px 6px rgba(60, 50, 40, 0.08);
+  --nk-shadow-md: 0 8px 24px rgba(60, 50, 40, 0.10);
+  --nk-shadow-lg: 0 20px 48px rgba(60, 50, 40, 0.14);
+
+  /* Motion */
+  --nk-ease:        cubic-bezier(0.22, 0.61, 0.36, 1);
+  --nk-duration-1:  120ms;
+  --nk-duration-2:  220ms;
+  --nk-duration-3:  360ms;
+}
+
+/* ============================================================
+   Semantic typography classes
+   Use these in markup OR re-map onto h1/h2/p in a reset.
+   ============================================================ */
+
+.nk-eyebrow {
+  font-family: var(--nk-font-serif);
+  font-size: var(--nk-fs-section);
+  font-weight: 400;
+  line-height: var(--nk-lh-snug);
+  color: var(--nk-fg-muted);
+}
+
+.nk-h1, h1.nk {
+  font-family: var(--nk-font-serif);
+  font-size: var(--nk-fs-h1);
+  font-weight: 500;
+  line-height: var(--nk-lh-tight);
+  letter-spacing: var(--nk-tracking-tight);
+  color: var(--nk-fg);
+}
+
+.nk-h2, h2.nk {
+  font-family: var(--nk-font-serif);
+  font-size: var(--nk-fs-h2);
+  font-weight: 500;
+  line-height: var(--nk-lh-tight);
+  color: var(--nk-fg);
+}
+
+.nk-h3, h3.nk {
+  font-family: var(--nk-font-serif);
+  font-size: var(--nk-fs-h3);
+  font-weight: 500;
+  line-height: var(--nk-lh-snug);
+  color: var(--nk-fg);
+}
+
+.nk-h4, h4.nk {
+  font-family: var(--nk-font-serif);
+  font-size: var(--nk-fs-h4);
+  font-weight: 500;
+  line-height: var(--nk-lh-snug);
+  color: var(--nk-fg);
+}
+
+.nk-h5, h5.nk {
+  font-family: var(--nk-font-serif);
+  font-size: var(--nk-fs-h5);
+  font-weight: 600;
+  line-height: var(--nk-lh-snug);
+  color: var(--nk-fg);
+}
+
+.nk-body-l { font-family: var(--nk-font-serif); font-size: var(--nk-fs-body-l); line-height: var(--nk-lh-relaxed); color: var(--nk-fg); }
+.nk-body   { font-family: var(--nk-font-serif); font-size: var(--nk-fs-body);   line-height: var(--nk-lh-relaxed); color: var(--nk-fg); }
+.nk-body-s { font-family: var(--nk-font-serif); font-size: var(--nk-fs-body-s); line-height: var(--nk-lh-normal);  color: var(--nk-fg-muted); }
+.nk-caption{ font-family: var(--nk-font-serif); font-size: var(--nk-fs-caption); line-height: var(--nk-lh-normal); color: var(--nk-fg-subtle); letter-spacing: var(--nk-tracking-wide); text-transform: uppercase; }
+
+/* Caveat (script) — slogans on brushstrokes, CTA labels. NEVER paragraphs. */
+.nk-script {
+  font-family: var(--nk-font-script);
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--nk-fg);
+}
+.nk-slogan {
+  font-family: var(--nk-font-script);
+  font-weight: 500;
+  font-size: 56px;
+  line-height: 1.05;
+  color: var(--nk-fg);
+}

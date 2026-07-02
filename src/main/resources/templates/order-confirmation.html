@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Rendelés visszaigazolás — Nemiskacat')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="wrap measure page-pad">
+    <div class="head-row">
+        <div>
+            <div class="eyebrow">Megérkezett</div>
+            <h1>Köszönjük a <em>rendelésed!</em></h1>
+        </div>
+    </div>
+
+    <p>Rendelési azonosító: <strong th:text="${order.orderNumber()}">NK-1</strong></p>
+
+    <p th:if="${order.status.name() == 'PAID'}">
+        <span class="order-status order-status--paid">Fizetés sikeres</span>
+    </p>
+    <div th:if="${order.status.name() == 'NEW'}">
+        <p th:if="${lastPayment != null and lastPayment.state.name() == 'FAILED'}">
+            <span class="order-status order-status--failed">A fizetés nem sikerült</span>
+        </p>
+        <p class="muted" th:if="${lastPayment != null and lastPayment.state.name() == 'FAILED'}">Próbáld újra.</p>
+        <p th:if="${lastPayment != null and lastPayment.state.name() == 'REVERSED'}">
+            <span class="order-status order-status--failed">A fizetést megszakítottad</span>
+        </p>
+        <p class="muted" th:if="${lastPayment != null and lastPayment.state.name() == 'REVERSED'}">Folytathatod, ha szeretnéd.</p>
+        <p th:if="${lastPayment == null}">
+            <span class="order-status order-status--pending">Fizetés függőben</span>
+        </p>
+        <form th:if="${paymentEnabled}" th:action="@{'/penztar/fizetes/' + ${order.clientKey}}" method="post" style="margin-top:16px">
+            <button type="submit" class="btn btn-primary">Fizetés bankkártyával</button>
+        </form>
+        <p class="muted" th:unless="${paymentEnabled}">
+            A bankkártyás fizetés hamarosan elérhető; a rendelésed rögzítettük.</p>
+    </div>
+
+    <table class="data-table">
+        <tbody>
+        <tr th:each="item : ${order.items}">
+            <td>
+                <span th:text="${item.productName}">Termék</span>
+                <span class="muted" th:if="${item.variantLabel}" th:text="' – ' + ${item.variantLabel}"></span>
+            </td>
+            <td th:text="${item.quantity} + ' db'">2 db</td>
+            <td th:text="${item.lineGrossHuf} + ' Ft'">7 400 Ft</td>
+        </tr>
+        <tr>
+            <td th:text="${order.shipMethodName}">GLS futárszolgálat</td>
+            <td></td>
+            <td th:text="${order.shipGrossHuf} + ' Ft'">850 Ft</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="order-total-row">
+        <span class="order-total-row__label">Fizetendő</span>
+        <strong class="order-total-row__amount" th:text="${order.totalGrossHuf} + ' Ft'">8 250 Ft</strong>
+    </div>
+
+    <div class="section-head">Áfa-bontás</div>
+    <table class="data-table">
+        <thead><tr><th>Kulcs</th><th>Nettó</th><th>Áfa</th><th>Bruttó</th></tr></thead>
+        <tbody>
+        <tr th:each="line : ${vatLines}">
+            <td th:text="${line.ratePercent()} + '%'">27%</td>
+            <td th:text="${line.netHuf()} + ' Ft'"></td>
+            <td th:text="${line.vatHuf()} + ' Ft'"></td>
+            <td th:text="${line.grossHuf()} + ' Ft'"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p class="muted" style="margin-top:24px">A rendelés visszaigazolását e-mailben is elküldjük.</p>
+    <p><a href="/" class="btn-link">Vissza a főoldalra</a></p>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<th:block th:replace="~{fragments/layout :: island-script}"></th:block>
+</body>
+</html>

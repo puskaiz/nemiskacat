@@ -1,0 +1,109 @@
+spring:
+  application:
+    name: webshop
+  # Load local secrets/overrides from .env (KEY=VALUE parses as a properties source).
+  # Optional, so production (real env vars / CI secrets) works without a .env file.
+  config:
+    import: "optional:file:./.env[.properties]"
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/webshop}
+    username: ${DB_USERNAME:webshop}
+    password: ${DB_PASSWORD:webshop}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  servlet:
+    multipart:
+      # Product image uploads (admin) — single-file cap + request cap with headroom.
+      max-file-size: 8MB
+      max-request-size: 10MB
+
+# Billingo invoicing (workshops, T24). API key + invoice block needed for live
+# issuing; until then webshop.invoicing.billingo-enabled stays false and workshop
+# invoices are recorded FAILED for retry once configured.
+billingo:
+  api-key: ${BILLINGO_API_KEY:}
+  # The starter's health indicator pings Billingo; keep it off until a key exists
+  # (otherwise /actuator/health is DOWN). Tracks the same flag as invoicing.
+  health:
+    enabled: ${BILLINGO_ENABLED:false}
+
+# Instagram feed cache — disabled by default (no HTTP or scheduler in this task).
+# Enable with instagram.enabled=true and supply the env vars listed below.
+# See InstagramIntegrationConfig for the flag-gating pattern.
+instagram:
+  enabled: ${INSTAGRAM_ENABLED:false}
+  user-id: ${INSTAGRAM_USER_ID:17841400265359060}
+  access-token: ${INSTAGRAM_ACCESS_TOKEN:}
+  graph-base-url: ${INSTAGRAM_GRAPH_BASE_URL:https://graph.instagram.com}
+  fetch-limit: ${INSTAGRAM_FETCH_LIMIT:8}
+  refresh-interval: ${INSTAGRAM_REFRESH_INTERVAL:PT30M}
+  connect-timeout: ${INSTAGRAM_CONNECT_TIMEOUT:PT5S}
+  read-timeout: ${INSTAGRAM_READ_TIMEOUT:PT10S}
+
+# KHPos payment gateway — disabled until the [EMBER] staging keys exist.
+# Enable with khpos.enabled=true + bank/merchant key config (see the starter README).
+khpos:
+  enabled: ${KHPOS_ENABLED:false}
+  return:
+    # bank-return callback path; must match the URL PaymentController sends to the
+    # bank (ServletUriComponentsBuilder + "/khpos/return"). Explicit for parity
+    # with the starter sample (its default is also /khpos/return).
+    path: /khpos/return
+    success-url: /penztar/fizetes/visszateres
+    failed-url: /penztar/fizetes/visszateres
+    cancelled-url: /penztar/fizetes/visszateres
+    pending-url: /penztar/fizetes/visszateres
+
+webshop:
+  version: "@project.version@"
+  # interim: the local WP serves the original images until object storage exists
+  images-base-url: ${IMAGE_BASE_URL:http://localhost/wp-content/uploads}
+  # Local disk root for uploaded product images (content-addressed). Replaced by
+  # object storage later without touching the StorageService port.
+  storage-dir: ${STORAGE_DIR:./data/uploads}
+  canonical-base-url: ${CANONICAL_BASE_URL:https://nemiskacat.hu}
+  admin:
+    product-editor-enabled: ${ADMIN_PRODUCT_EDITOR_ENABLED:true}
+  invoicing:
+    billingo-enabled: ${BILLINGO_ENABLED:false}
+    billingo-block-id: ${BILLINGO_BLOCK_ID:0}
+  # business-confirmed fee table (docs/poc/2026-06-13-shipping-vat-config.md), gross HUF
+  shipping:
+    free-threshold-gross-huf: 39000
+    methods:
+      - code: gls
+        name: "GLS futárszolgálat"
+        free-over-threshold: true
+        bands:
+          - { max-weight-grams: 900, gross-huf: 850 }
+          - { max-weight-grams: 5000, gross-huf: 1500 }
+          - { max-weight-grams: 500000, gross-huf: 1700 }
+      - code: posta
+        name: "Magyar Posta házhozszállítás (szállítási idő min. 8 munkanap)"
+        flat-gross-huf: 7900
+      - code: pickup
+        name: "Személyes átvétel üzletünkben"
+        flat-gross-huf: 0
+
+# Time zone discipline (CLAUDE.md rule #6): timestamps stored in UTC.
+# Display tier converts to Europe/Budapest later.
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+server:
+  # Bind the platform-provided port (Railway/Heroku set $PORT); 8080 locally.
+  port: ${PORT:8080}
+  shutdown: graceful

@@ -1,0 +1,12 @@
+{
+  "greet": "Jó reggelt, {{name}}",
+  "subtitle": "Íme, mi történik ma a nemiskacatnál.",
+  "range": "Utolsó 7 nap",
+  "kpiRevenue": "Mai bevétel",
+  "kpiNewOrders": "Új rendelések",
+  "kpiSeats": "Eladott workshop helyek",
+  "kpiLowStock": "Alacsony készlet",
+  "recentOrders": "Legutóbbi rendelések",
+  "all": "Összes",
+  "upcoming": "Közelgő workshopok"
+}

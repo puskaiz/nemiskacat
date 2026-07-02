@@ -1,0 +1,4 @@
+# Import profile: one-shot content-page import (PageImportRunner), no web server.
+spring:
+  main:
+    web-application-type: none

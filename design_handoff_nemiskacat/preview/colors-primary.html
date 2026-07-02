@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="_card.css" />
+<style>
+  .card { padding: 0; overflow: hidden; border: none; background: transparent; }
+  .stage {
+    background: var(--nk-white);
+    padding: 0;
+    border-radius: var(--nk-radius-md);
+    border: 1px solid var(--nk-border);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 0;
+  }
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    aspect-ratio: 1 / 1;
+    padding: 14px 16px;
+  }
+  .swatch .name {
+    font-family: var(--nk-font-serif);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--nk-fg);
+  }
+  .swatch .hex {
+    font-family: var(--nk-font-mono);
+    font-size: 11px;
+    color: var(--nk-fg-muted);
+    margin-top: 2px;
+  }
+  .swatch.white { background: var(--nk-white); border-right: 1px solid var(--nk-border); }
+  .swatch.gray  { background: var(--nk-gray-20); }
+  .swatch.black { background: var(--nk-black); }
+  .swatch.black .name, .swatch.black .hex { color: var(--nk-white); }
+  .swatch.black .hex { color: var(--nk-gray-30); }
+  .swatch.yellow{ background: var(--nk-yellow-50); }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="stage">
+      <div class="swatch white"><div class="name">Fehér</div><div class="hex">#FFFFFF</div></div>
+      <div class="swatch gray"><div class="name">Meleg szürke 20</div><div class="hex">#EBE6E3</div></div>
+      <div class="swatch black"><div class="name">Fekete</div><div class="hex">#000000</div></div>
+      <div class="swatch yellow"><div class="name">Sárga 50</div><div class="hex">#ECC45D</div></div>
+    </div>
+  </div>
+</body>
+</html>

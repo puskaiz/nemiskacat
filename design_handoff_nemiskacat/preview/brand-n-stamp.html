@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="_card.css" />
+<style>
+  .card { padding: 0; overflow: hidden; border: none; background: transparent; }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    padding: 24px;
+    background: var(--nk-gray-20);
+    border-radius: var(--nk-radius-md);
+  }
+  .cell {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+  }
+  .cell img { max-width: 86%; max-height: 86%; }
+  .light { background: var(--nk-white); }
+  .dark  { background: var(--nk-black); }
+  .accent{ background: var(--nk-yellow-50); }
+  .name {
+    font-family: var(--nk-font-serif);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--nk-fg-subtle);
+    text-align: center;
+    margin-top: 6px;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="grid">
+      <div>
+        <div class="cell light"><img src="../assets/logos/n-mark-black.png" alt="n stamp black" /></div>
+        <div class="name">on white</div>
+      </div>
+      <div>
+        <div class="cell dark"><img src="../assets/logos/n-mark-yellow.png" alt="n stamp yellow" /></div>
+        <div class="name">on black</div>
+      </div>
+      <div>
+        <div class="cell accent"><img src="../assets/logos/n-mark-white.png" alt="n stamp white" /></div>
+        <div class="name">on yellow</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

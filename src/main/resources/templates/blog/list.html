@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${list.categorySlug != null} ? ${list.categoryName} : 'Blog')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="wrap">
+    <nav class="crumbs" aria-label="Navigáció">
+        <a href="/">Webshop</a>
+        <span class="crumbs__sep" aria-hidden="true"></span>
+        <a href="/blog">Blog</a>
+        <th:block th:if="${list.categorySlug != null}">
+            <span class="crumbs__sep" aria-hidden="true"></span>
+            <b th:text="${list.categoryName}">Kategória</b>
+        </th:block>
+    </nav>
+
+    <div class="title-row title-row--solo">
+        <div>
+            <div class="eyebrow">Nemiskacat</div>
+            <h1 th:text="${list.categorySlug != null} ? ${list.categoryName} : 'Blog'">Blog</h1>
+        </div>
+    </div>
+
+    <div class="nk-blog-layout">
+        <div class="nk-blog-content">
+            <div class="nk-blog-list" id="nk-blog-list">
+                <article class="nk-blog-card" th:each="item : ${list.items}">
+                    <div class="nk-blog-card__media">
+                        <a th:href="@{'/' + ${item.slug}}" class="nk-blog-card__image-link" tabindex="-1" aria-hidden="true">
+                            <img th:if="${item.coverImageUrl}"
+                                 class="nk-blog-card__image"
+                                 th:src="${item.coverImageUrl}"
+                                 alt=""
+                                 loading="lazy"/>
+                            <span th:unless="${item.coverImageUrl}"
+                                  class="nk-blog-card__image nk-blog-card__image--placeholder"></span>
+                        </a>
+                        <div class="nk-blog-card__cats" th:if="${!item.categories.isEmpty()}">
+                            <a th:each="c : ${item.categories}"
+                               th:href="@{'/blog/kategoria/' + ${c.slug}}"
+                               th:text="${c.name}"
+                               class="nk-blog-card__cat">kategória</a>
+                        </div>
+                    </div>
+                    <div class="nk-blog-card__body">
+                        <a th:href="@{'/' + ${item.slug}}" class="nk-blog-card__title-link">
+                            <h2 class="nk-blog-card__title" th:text="${item.title}">Cím</h2>
+                        </a>
+                        <p class="nk-blog-card__date"
+                           th:if="${item.publishedDate}"
+                           th:text="${#temporals.format(item.publishedDate, 'yyyy. MM. dd.')}">dátum</p>
+                        <p class="nk-blog-card__excerpt" th:if="${item.excerpt}" th:text="${item.excerpt}">kivonat</p>
+                        <a class="nk-blog-card__readmore" th:href="@{'/' + ${item.slug}}">Tovább olvasom »</a>
+                    </div>
+                </article>
+            </div>
+
+            <th:block th:if="${list.totalPages > 1}"
+                      th:with="base=${list.categorySlug != null ? ('/blog/kategoria/' + list.categorySlug + '/?page=') : '/blog?page='},
+                               winStart=${T(java.lang.Math).max(1, list.page - 2)},
+                               winEnd=${T(java.lang.Math).min(list.totalPages, list.page + 2)}">
+                <!-- Condensed numbered pager: no-JS fallback; load-more.js hides it when JS is active -->
+                <nav class="pagin" data-loadmore-fallback aria-label="Lapozó">
+                    <a class="pagin__prev" th:if="${list.page > 1}" th:href="${base} + ${list.page - 1}"
+                       aria-label="Előző oldal"><span class="pagin__caret pagin__caret--prev" aria-hidden="true"></span></a>
+
+                    <a th:if="${winStart > 1}" th:href="${base} + 1"><span>1</span></a>
+                    <span th:if="${winStart > 2}" class="pagin__gap" aria-hidden="true">…</span>
+
+                    <a th:each="n : ${#numbers.sequence(winStart, winEnd)}" th:href="${base} + ${n}">
+                        <span th:classappend="${n == list.page} ? 'on'" th:text="${n}">1</span>
+                    </a>
+
+                    <span th:if="${winEnd < list.totalPages - 1}" class="pagin__gap" aria-hidden="true">…</span>
+                    <a th:if="${winEnd < list.totalPages}" th:href="${base} + ${list.totalPages}"><span th:text="${list.totalPages}">N</span></a>
+
+                    <a class="pagin__next" th:if="${list.page < list.totalPages}" th:href="${base} + ${list.page + 1}"
+                       aria-label="Következő oldal"><span class="pagin__caret pagin__caret--next" aria-hidden="true"></span></a>
+                </nav>
+
+                <!-- JS-enhanced load-more: revealed by load-more.js, which hides the pager above -->
+                <button class="btn btn-secondary nk-loadmore" type="button" hidden
+                        th:if="${list.page < list.totalPages}"
+                        data-target="#nk-blog-list" data-item=".nk-blog-card"
+                        th:attr="data-next=${base} + ${list.page + 1}">
+                    Több betöltése…
+                </button>
+            </th:block>
+        </div>
+        <th:block th:replace="~{fragments/blog :: sidebar}"></th:block>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<th:block th:replace="~{fragments/layout :: island-script}"></th:block>
+<script src="/js/load-more.js" defer></script>
+</body>
+</html>

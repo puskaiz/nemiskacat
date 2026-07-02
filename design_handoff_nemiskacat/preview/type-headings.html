@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="_card.css" />
+<style>
+  .card { gap: 8px; }
+  .row { display: grid; grid-template-columns: 100px 1fr 90px; align-items: baseline; gap: 16px; padding: 10px 0; border-bottom: 1px dotted var(--nk-border); }
+  .row:last-child { border-bottom: none; }
+  .tag { font-family: var(--nk-font-serif); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--nk-fg-subtle); }
+  .specimen { font-family: 'Lora', serif; color: var(--nk-fg); line-height: 1.05; }
+  .px { font-family: var(--nk-font-mono); font-size: 11px; color: var(--nk-fg-muted); text-align: right; }
+  .s64 { font-size: 36px; font-weight: 500; }
+  .s48 { font-size: 28px; font-weight: 500; }
+  .s40 { font-size: 24px; font-weight: 500; }
+  .s32 { font-size: 20px; font-weight: 500; }
+  .s25 { font-size: 17px; font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="row"><div class="tag">H1 · 64</div><div class="specimen s64">Az ecsetet Te fogod</div><div class="px">64 / 500</div></div>
+    <div class="row"><div class="tag">H2 · 48</div><div class="specimen s48">Az ecsetet Te fogod</div><div class="px">48 / 500</div></div>
+    <div class="row"><div class="tag">H3 · 40</div><div class="specimen s40">Az ecsetet Te fogod</div><div class="px">40 / 500</div></div>
+    <div class="row"><div class="tag">H4 · 32</div><div class="specimen s32">Az ecsetet Te fogod</div><div class="px">32 / 500</div></div>
+    <div class="row"><div class="tag">H5 · 25</div><div class="specimen s25">Az ecsetet Te fogod</div><div class="px">25 / 600</div></div>
+  </div>
+</body>
+</html>

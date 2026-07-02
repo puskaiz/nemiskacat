@@ -1,0 +1,21 @@
+{
+  "title": "Shipping",
+  "subtitle": "9 orders awaiting packing",
+  "carrierFilter": "Carrier: all",
+  "toPack": "To pack",
+  "ready": "Ready",
+  "shipped": "Shipped",
+  "pickup": "Pickup",
+  "selected": "{{count}} selected",
+  "printLabels": "Print labels",
+  "printDelivery": "Print delivery notes",
+  "markShipped": "Mark as shipped",
+  "order": "Order",
+  "customer": "Customer",
+  "items": "Items",
+  "destination": "Destination",
+  "method": "Method",
+  "label": "Label",
+  "print": "Print",
+  "footnote": "Carrier integrations to confirm: GLS · Foxpost · MPL · Packeta. Pickup-point orders on the Pickup tab."
+}

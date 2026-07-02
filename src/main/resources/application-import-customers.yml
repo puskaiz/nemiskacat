@@ -1,0 +1,4 @@
+# Customer-migration profile: one-shot import (CustomerImportRunner), no web server.
+spring:
+  main:
+    web-application-type: none

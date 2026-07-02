@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Pénztár — Nemiskacat')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="wrap page-pad">
+    <div class="head-row">
+        <div>
+            <div class="eyebrow">Már csak egy lépés</div>
+            <h1>Pénztár</h1>
+        </div>
+    </div>
+
+    <p class="notice bad" th:if="${stockError}">
+        A kosár egyik terméke időközben elfogyott — kérjük, ellenőrizd a kosarad.
+    </p>
+
+    <div class="cart-grid">
+        <form th:action="@{/penztar}" method="post" class="form-narrow">
+            <input type="hidden" name="clientKey" th:value="${clientKey}">
+
+            <div class="section-head">Szállítási adatok</div>
+            <label class="field field--required"><span>Név</span><input type="text" name="customerName" required></label>
+            <label class="field field--required"><span>E-mail</span><input type="email" name="email" required></label>
+            <label class="field"><span>Telefon</span><input type="tel" name="phone"></label>
+            <label class="field field--required"><span>Irányítószám</span><input type="text" name="postcode" required></label>
+            <label class="field field--required"><span>Település</span><input type="text" name="city" required></label>
+            <label class="field field--required"><span>Utca, házszám</span><input type="text" name="addressLine" required></label>
+            <label class="field"><span>Megjegyzés</span><textarea name="note" rows="2"></textarea></label>
+
+            <div class="section-head">Szállítási mód</div>
+            <label class="shipping-option" th:each="opt, it : ${checkout.shippingOptions}">
+                <input type="radio" name="shippingMethodCode" th:value="${opt.code}"
+                       th:checked="${it.index == 0}" required>
+                <span th:text="${opt.name}">GLS futárszolgálat</span>
+                <strong th:text="${opt.free} ? 'Ingyenes' : ${opt.grossHuf} + ' Ft'">850 Ft</strong>
+            </label>
+
+            <!-- DECISION NEEDED [EMBER]: végleges ÁSZF-szöveg és link (docs/TODO.md) -->
+            <label class="field field--check">
+                <input type="checkbox" required>
+                <span>Elfogadom az <a href="/">Általános Szerződési Feltételeket</a>.</span>
+            </label>
+
+            <button type="submit" class="btn btn-primary btn-block" style="margin-top:16px">Megrendelem</button>
+            <p class="muted" style="margin-top:10px">A fizetés a következő lépésben érhető el.</p>
+        </form>
+
+        <aside class="sum">
+            <h2>Rendelés tartalma</h2>
+            <div class="row" th:each="item : ${checkout.cart.items}">
+                <span>
+                    <span th:text="${item.name}">Termék</span>
+                    <span class="muted" th:if="${item.variantLabel}" th:text="' · ' + ${item.variantLabel}"></span>
+                    <span class="muted" th:text="' × ' + ${item.quantity}"></span>
+                </span>
+                <span th:text="${item.lineTotalFormatted}">7 400 Ft</span>
+            </div>
+            <div class="row total"><span>Részösszeg</span><strong th:text="${checkout.cart.totalFormatted}">7 400 Ft</strong></div>
+            <div class="ship">A végösszeg a választott szállítási móddal egészül ki.</div>
+        </aside>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<th:block th:replace="~{fragments/layout :: island-script}"></th:block>
+</body>
+</html>

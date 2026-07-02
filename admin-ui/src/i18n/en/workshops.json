@@ -1,0 +1,16 @@
+{
+  "title": "Workshops",
+  "subtitle": "workshop.nemiskacat.hu · {{count}} sessions this month",
+  "month": "June 2026",
+  "monthView": "Month",
+  "listView": "List",
+  "newWorkshop": "+ New workshop",
+  "weekdayMon": "Mon",
+  "weekdayTue": "Tue",
+  "weekdayWed": "Wed",
+  "weekdayThu": "Thu",
+  "weekdayFri": "Fri",
+  "weekdaySat": "Sat",
+  "weekdaySun": "Sun",
+  "listEmpty": "No more workshops this month."
+}

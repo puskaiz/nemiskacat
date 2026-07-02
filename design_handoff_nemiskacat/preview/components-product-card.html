@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="_card.css" />
+<style>
+  .card { padding: 0; overflow: hidden; border: none; background: transparent; }
+  .stage {
+    background: var(--nk-gray-20);
+    padding: 24px;
+    border-radius: var(--nk-radius-md);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .product {
+    background: var(--nk-white);
+    border-radius: var(--nk-radius-md);
+    overflow: hidden;
+    box-shadow: var(--nk-shadow-sm);
+    display: flex;
+    flex-direction: column;
+  }
+  .product .img {
+    height: 130px;
+    background: linear-gradient(180deg, #d6cfc9 0%, #c2b9b1 100%);
+    position: relative;
+  }
+  .product .img::after {
+    content: '';
+    position: absolute;
+    inset: auto 12px 12px auto;
+    width: 56px; height: 56px;
+    background: var(--nk-yellow-50);
+    border-radius: 6px;
+    box-shadow: var(--nk-shadow-xs);
+  }
+  .product .body {
+    padding: 14px 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .product .cat {
+    font-family: var(--nk-font-serif);
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--nk-fg-subtle);
+  }
+  .product .name {
+    font-family: var(--nk-font-serif); font-size: 16px; font-weight: 500; color: var(--nk-fg);
+  }
+  .product .price {
+    font-family: 'Caveat', cursive; font-size: 22px; color: var(--nk-fg); margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="stage">
+      <div class="product">
+        <div class="img"></div>
+        <div class="body">
+          <div class="cat">Annie Sloan · Krétafesték</div>
+          <div class="name">Chalk Paint — Country Grey</div>
+          <div class="price">6 800 Ft</div>
+        </div>
+      </div>
+      <div class="product">
+        <div class="img" style="background: linear-gradient(180deg, #ecc45d 0%, #c39e36 100%);"></div>
+        <div class="body">
+          <div class="cat">Annie Sloan · Krétafesték</div>
+          <div class="name">Chalk Paint — Arles</div>
+          <div class="price">6 800 Ft</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

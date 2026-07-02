@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${page.seoTitle})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="wrap nk-page">
+    <nav class="crumbs" aria-label="Navigáció">
+        <a href="/">Webshop</a>
+        <span class="crumbs__sep" aria-hidden="true"></span>
+        <b th:text="${page.title}">Oldal</b>
+    </nav>
+
+    <article class="nk-page-article">
+        <h1 class="nk-page-article__title" th:text="${page.title}">Cím</h1>
+        <div class="nk-page-article__body nk-rich" th:utext="${page.bodyHtml}">törzs</div>
+    </article>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<th:block th:replace="~{fragments/layout :: island-script}"></th:block>
+
+<!-- WebPage JSON-LD for schema.org — at end of body, outside head fragment scope. -->
+<script type="application/ld+json" th:utext="${page.jsonLd}"></script>
+</body>
+</html>

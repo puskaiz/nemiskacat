@@ -1,0 +1,12 @@
+{
+  "title": "Oldalak",
+  "subtitle": "A nemiskacat.hu tartalma",
+  "new": "Új oldal",
+  "colTitle": "Cím",
+  "colUrl": "URL",
+  "colLangs": "Nyelvek",
+  "colUpdated": "Frissítve",
+  "colStatus": "Állapot",
+  "status_active": "Közzétéve",
+  "status_pending": "Vázlat"
+}

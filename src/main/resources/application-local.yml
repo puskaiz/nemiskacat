@@ -1,0 +1,27 @@
+# Local development profile. Activate with: --spring.profiles.active=local
+# Uses the developer's own PostgreSQL on localhost:5432 (application.yml defaults:
+# db/user/password = webshop); override via .env (DB_URL, DB_USERNAME, DB_PASSWORD).
+logging:
+  level:
+    hu.deposoft.webshop: DEBUG
+    hu.deposoft.khpos: DEBUG
+    org.flywaydb: INFO
+
+# KHPos K&H sandbox — same keys as the khpos sample app, shared in ~/.khpos/.
+# Enabled only in the local profile; tests and the default profile keep
+# khpos.enabled=false (mocked gateway). Real keys never enter the repo.
+khpos:
+  enabled: true
+  sandbox: true
+  bank:
+    public-key: file:${user.home}/.khpos/mips_pay.sandbox.khpos.hu.pub
+  merchants:
+    HUF:
+      id: M1HU1G0335
+      private-key: file:${user.home}/.khpos/M1HU1G0335-sandbox-private.pem
+      private-key-password: ""
+  http:
+    log-requests: true
+    log-responses: true
+server:
+  port: 8085

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="_card.css" />
+<style>
+  .card { padding: 0; overflow: hidden; border: none; background: transparent; }
+  .stage {
+    border: 1px solid var(--nk-border);
+    border-radius: var(--nk-radius-md);
+    overflow: hidden;
+    background: var(--nk-white);
+  }
+  .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+  .row + .row { border-top: 1px solid var(--nk-border); }
+  .sw {
+    height: 110px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .sw .name {
+    font-family: var(--nk-font-serif);
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .sw .hex {
+    font-family: var(--nk-font-mono);
+    font-size: 11px;
+    margin-top: 2px;
+    opacity: 0.75;
+  }
+  .sw.divider { border-right: 1px solid var(--nk-border); }
+  .y40 { background: #F5DFA1; }
+  .y50 { background: #ECC45D; }
+  .y60 { background: #C39E36; color: var(--nk-white); }
+  .g10 { background: #F4F0ED; }
+  .g20 { background: #EBE6E3; }
+  .g30 { background: #D6CFC9; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="stage">
+      <div class="row">
+        <div class="sw y40 divider"><div class="name">Sárga 40</div><div class="hex">#F5DFA1</div></div>
+        <div class="sw y50 divider"><div class="name">Sárga 50</div><div class="hex">#ECC45D</div></div>
+        <div class="sw y60"><div class="name">Sárga 60</div><div class="hex">#C39E36</div></div>
+      </div>
+      <div class="row">
+        <div class="sw g10 divider"><div class="name">Szürke 10</div><div class="hex">#F4F0ED</div></div>
+        <div class="sw g20 divider"><div class="name">Szürke 20</div><div class="hex">#EBE6E3</div></div>
+        <div class="sw g30"><div class="name">Szürke 30</div><div class="hex">#D6CFC9</div></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "title": "Social links",
+  "subtitle": "Links shown in the header and blog sidebar",
+  "colNetwork": "Network",
+  "colUrl": "URL",
+  "colActions": "Actions",
+  "add": "New link",
+  "save": "Save",
+  "edit": "Edit",
+  "delete": "Delete",
+  "moveUp": "Up",
+  "moveDown": "Down",
+  "saved": "Saved",
+  "saveFailed": "Save failed"
+}

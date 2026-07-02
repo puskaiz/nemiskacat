@@ -1,0 +1,11 @@
+{
+  "title": "Oktatók",
+  "subtitle": "A workshopokat vezető emberek",
+  "new": "Új oktató",
+  "name": "Oktató",
+  "specialty": "Szakterület",
+  "workshopCount": "Workshopok",
+  "status": "Állapot",
+  "status_active": "Aktív",
+  "status_leave": "Szabadságon"
+}

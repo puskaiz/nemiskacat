@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<body>
+<aside th:fragment="sidebar" class="nk-blog-sidebar" aria-label="Oldalsáv">
+    <th:block th:if="${sidebar != null}" th:each="block : ${sidebar.blocks}">
+
+        <!-- AUTHOR -->
+        <section th:if="${block.type == 'AUTHOR'}" class="nk-sb-block nk-sb-author">
+            <img class="nk-sb-author__photo" th:src="${block.author.photoUrl}"
+                 th:alt="${block.author.name}" width="180" height="180">
+            <h2 class="nk-sb-author__name" th:text="${block.author.name}">Név</h2>
+            <p class="nk-sb-author__bio" th:text="${block.author.bio}">bio</p>
+            <p class="nk-sb-author__goals"
+               th:if="${block.author.goals != null and !block.author.goals.isEmpty()}"
+               th:text="${block.author.goals}">célok</p>
+        </section>
+
+        <!-- CATEGORIES -->
+        <section th:if="${block.type == 'CATEGORIES' and !block.categories.items.isEmpty()}"
+                 class="nk-sb-block nk-sb-cats">
+            <h2 class="nk-sb-block__title" th:text="${block.categories.title}">Kategóriák</h2>
+            <ul class="nk-sb-cats__list">
+                <li th:each="c : ${block.categories.items}">
+                    <a th:href="@{'/blog/kategoria/' + ${c.slug}}" th:text="${c.name}">Kategória</a>
+                </li>
+            </ul>
+        </section>
+
+        <!-- CTA -->
+        <section th:if="${block.type == 'CTA'}" class="nk-sb-block nk-sb-cta">
+            <h2 class="nk-sb-block__title" th:text="${block.cta.title}">CTA</h2>
+            <img th:if="${block.cta.imageUrl}" class="nk-sb-cta__img"
+                 th:src="${block.cta.imageUrl}" alt="" loading="lazy">
+            <p class="nk-sb-cta__desc"
+               th:if="${block.cta.description != null and !block.cta.description.isEmpty()}"
+               th:text="${block.cta.description}">leírás</p>
+            <a class="nk-sb-cta__btn" th:href="${block.cta.url}"
+               th:text="${block.cta.buttonLabel}">Webshop</a>
+        </section>
+
+        <!-- CONTACT -->
+        <section th:if="${block.type == 'CONTACT'}" class="nk-sb-block nk-sb-contact">
+            <h2 class="nk-sb-block__title" th:text="${block.contact.title}">Elérhetőség</h2>
+            <ul class="nk-sb-contact__list">
+                <li th:if="${block.contact.phone}">
+                    <span class="nk-sb-contact__label">Telefon:</span>
+                    <a th:href="'tel:' + ${block.contact.phone}" th:text="${block.contact.phone}">tel</a>
+                </li>
+                <li th:if="${block.contact.email}">
+                    <span class="nk-sb-contact__label">E-mail:</span>
+                    <a th:href="'mailto:' + ${block.contact.email}" th:text="${block.contact.email}">email</a>
+                </li>
+                <li th:if="${block.contact.address}" th:text="${block.contact.address}">cím</li>
+                <li th:if="${block.contact.openingHours}" class="nk-sb-contact__hours" style="white-space: pre-line" th:text="${block.contact.openingHours}">nyitvatartás</li>
+            </ul>
+        </section>
+
+        <!-- INSTAGRAM -->
+        <section th:if="${block.type == 'INSTAGRAM' and block.instagram != null and !block.instagram.posts.isEmpty()}"
+                 class="nk-sb-block nk-sb-instagram">
+            <h2 class="nk-sb-block__title" th:text="${block.instagram.title}">Kövess minket Instagramon</h2>
+            <div class="nk-instagram__grid">
+                <a class="nk-instagram__item" th:each="p : ${block.instagram.posts}"
+                   th:href="${p.permalink}" target="_blank" rel="noopener noreferrer">
+                    <img th:src="${p.displayUrl}"
+                         th:alt="${p.caption != null ? p.caption : 'Instagram bejegyzés'}"
+                         loading="lazy">
+                </a>
+            </div>
+        </section>
+
+        <!-- SOCIAL -->
+        <section th:if="${block.type == 'SOCIAL'}" class="nk-sb-block nk-sb-social">
+            <h2 class="nk-sb-block__title" th:text="${block.social.title}">Kövess minket</h2>
+            <div th:replace="~{fragments/components :: socialIcons(${block.social.links})}"></div>
+        </section>
+
+    </th:block>
+</aside>
+</body>
+</html>

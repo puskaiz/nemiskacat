@@ -1,0 +1,4 @@
+# Order-migration profile: one-shot import (OrderImportRunner), no web server.
+spring:
+  main:
+    web-application-type: none

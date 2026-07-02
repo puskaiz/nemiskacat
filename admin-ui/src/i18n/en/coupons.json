@@ -1,0 +1,11 @@
+{
+  "title": "Coupons",
+  "subtitle": "5 active · 1 inactive",
+  "new": "New coupon",
+  "code": "Code",
+  "type": "Type",
+  "value": "Value",
+  "usage": "Usage",
+  "expires": "Expires",
+  "status": "Status"
+}

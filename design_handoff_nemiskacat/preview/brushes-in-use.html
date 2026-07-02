@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="_card.css" />
+<style>
+  .card { padding: 0; overflow: hidden; border: none; background: transparent; }
+  .stage {
+    background: var(--nk-white);
+    border: 1px solid var(--nk-border);
+    border-radius: var(--nk-radius-md);
+    padding: 36px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    align-items: center;
+  }
+
+  /* The brushstroke is a background image stretched to the container's
+     box. Padding controls how much "brush" peeks around the text. */
+  .brush {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    font-family: 'Caveat', cursive;
+    font-weight: 600;
+    color: var(--nk-fg);
+    line-height: 1;
+  }
+
+  .brush.long {
+    background-image: url('../assets/brushes/brush-long-yellow.png');
+    padding: 22px 56px;
+    font-size: 38px;
+  }
+
+  .brush.circle {
+    background-image: url('../assets/brushes/brush-circle-yellow.png');
+    width: 150px;
+    height: 150px;
+    font-size: 32px;
+    transform: rotate(-2deg);
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="stage">
+      <div class="brush long">Az ecsetet Te fogod, a többit mi adjuk!</div>
+      <div class="brush circle">Újdonság!</div>
+    </div>
+  </div>
+</body>
+</html>

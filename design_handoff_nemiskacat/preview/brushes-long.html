@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="_card.css" />
+<style>
+  .card { padding: 0; overflow: hidden; border: none; background: transparent; }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    background: var(--nk-white);
+    border: 1px solid var(--nk-border);
+    border-radius: var(--nk-radius-md);
+    overflow: hidden;
+  }
+  .cell {
+    padding: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 130px;
+    position: relative;
+  }
+  .cell + .cell { border-left: 1px solid var(--nk-border); }
+  .row2 { border-top: 1px solid var(--nk-border); }
+  .cell.tone   { background: var(--nk-gray-20); }
+  .cell.dark   { background: var(--nk-black); }
+  .cell img    { max-width: 80%; max-height: 90px; }
+  .lab {
+    position: absolute; top: 8px; left: 12px;
+    font-family: var(--nk-font-serif);
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--nk-fg-subtle);
+  }
+  .dark .lab { color: rgba(255,255,255,0.55); }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="grid">
+      <div class="cell">
+        <span class="lab">on white</span>
+        <img src="../assets/brushes/brush-long-yellow.png" alt="yellow brush" />
+      </div>
+      <div class="cell">
+        <span class="lab">on white</span>
+        <img src="../assets/brushes/brush-long-gray.png" alt="gray brush" />
+      </div>
+      <div class="cell row2 tone">
+        <span class="lab">on tone</span>
+        <img src="../assets/brushes/brush-long-white.png" alt="white brush" />
+      </div>
+      <div class="cell row2 dark">
+        <span class="lab">on dark</span>
+        <img src="../assets/brushes/brush-long-yellow.png" alt="yellow brush on dark" />
+      </div>
+    </div>
+  </div>
+</body>
+</html>

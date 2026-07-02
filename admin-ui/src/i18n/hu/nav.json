@@ -1,0 +1,14 @@
+{
+  "dashboard": "Vezérlőpult",
+  "sell": "Értékesítés", "orders": "Rendelések", "products": "Termékek",
+  "allProducts": "Összes termék", "categories": "Kategóriák", "coupons": "Kuponok",
+  "customers": "Vásárlók", "shipping": "Szállítás",
+  "workshopsGroup": "Workshopok", "workshops": "Workshopok", "allWorkshops": "Összes workshop",
+  "instructors": "Oktatók", "bookings": "Foglalások",
+  "analytics": "Elemzések", "reports": "Riportok",
+  "content": "Tartalom", "blog": "Blog", "allBlog": "Összes blog", "tags": "Címkék", "pages": "Oldalak", "sidebarBlocks": "Oldalsáv blokkok", "settings": "Beállítások",
+  "social": "Közösségi linkek",
+  "blogCategories": "Blog kategóriák",
+  "blogTags": "Blog címkék",
+  "productTags": "Termék címkék"
+}

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="_card.css" />
+<style>
+  .card { padding: 0; overflow: hidden; border: none; background: transparent; }
+  .stage {
+    background: var(--nk-white);
+    border: 1px solid var(--nk-border);
+    border-radius: var(--nk-radius-md);
+    padding: 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 20px;
+    align-items: center;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Caveat', cursive;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1;
+    transition: all 220ms cubic-bezier(0.22,0.61,0.36,1);
+  }
+  .btn img { width: 22px; height: 22px; }
+  .btn.primary {
+    background: var(--nk-yellow-50);
+    color: var(--nk-black);
+  }
+  .btn.primary:hover { background: var(--nk-yellow-60); }
+  .btn.secondary {
+    background: transparent;
+    border: 1.5px solid var(--nk-black);
+    color: var(--nk-black);
+  }
+  .btn.ghost {
+    background: transparent;
+    color: var(--nk-black);
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    text-decoration: underline;
+    text-decoration-color: var(--nk-yellow-50);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+  }
+  .btn.small {
+    padding: 8px 18px;
+    font-size: 19px;
+  }
+  .lbl { font-family: var(--nk-font-serif); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--nk-fg-subtle); }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="stage">
+      <div class="lbl">Primary</div>
+      <button class="btn primary"><img src="../assets/icons/brush.png" alt="" />Elolvasom</button>
+
+      <div class="lbl">Secondary</div>
+      <button class="btn secondary">Termékek a webshopban</button>
+
+      <div class="lbl">Ghost / link</div>
+      <button class="btn ghost">Megyek olvasni, inspirálódni →</button>
+
+      <div class="lbl">Small primary</div>
+      <button class="btn primary small">Regisztrálj</button>
+    </div>
+  </div>
+</body>
+</html>

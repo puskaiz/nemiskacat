@@ -1,0 +1,43 @@
+{
+  "name": "nemiskacat-admin-ui",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@fontsource/hanken-grotesk": "^5.2.8",
+    "@refinedev/antd": "^5.45.0",
+    "@refinedev/core": "^4.57.0",
+    "@refinedev/react-router-v6": "^4.6.0",
+    "@tiptap/extension-image": "^3.27.1",
+    "@tiptap/extension-link": "^3.27.1",
+    "@tiptap/extension-table": "^3.27.1",
+    "@tiptap/pm": "^3.27.1",
+    "@tiptap/react": "^3.27.1",
+    "@tiptap/starter-kit": "^3.27.1",
+    "antd": "^5.22.0",
+    "dayjs": "^1.11.21",
+    "dompurify": "^3.4.11",
+    "i18next": "^23.16.8",
+    "lucide-react": "^0.460.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-i18next": "^15.7.4",
+    "react-quill-new": "^3.3.3",
+    "react-router-dom": "^6.28.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^29.1.1",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.5",
+    "vitest": "^2.1.8"
+  }
+}

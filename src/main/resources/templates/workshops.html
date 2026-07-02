@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Workshopok')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="wrap">
+    <nav class="crumbs" aria-label="Navigáció">
+        <a href="/">Webshop</a>
+        <span class="crumbs__sep" aria-hidden="true"></span>
+        <b>Workshopok</b>
+    </nav>
+
+    <div class="title-row title-row--solo">
+        <div>
+            <div class="eyebrow">Nemiskacat</div>
+            <h1>Workshopok</h1>
+        </div>
+    </div>
+
+    <p class="muted" th:if="${workshops.isEmpty()}">
+        Jelenleg nincs meghirdetett workshop. Nézz vissza hamarosan!</p>
+
+    <div class="nk-prod-grid" th:unless="${workshops.isEmpty()}">
+        <div th:each="w : ${workshops}"
+             class="nk-product-card"
+             th:classappend="${!w.hasUpcoming} ? 'nk-product-card--unavailable'">
+
+            <!-- Image area -->
+            <a class="nk-product-card__image-link" th:href="${w.url}" tabindex="-1" aria-hidden="true">
+                <div class="nk-product-card__image-wrap">
+                    <img th:if="${w.imageUrl}"
+                         class="nk-product-card__image"
+                         th:src="${w.imageUrl}"
+                         th:alt="${w.name}"
+                         loading="lazy">
+                    <div th:unless="${w.imageUrl}" class="nk-product-card__placeholder" aria-hidden="true">
+                        <div class="nk-product-card__swatch"></div>
+                    </div>
+                    <!-- Date badge when upcoming; "Hamarosan" when not -->
+                    <span th:if="${w.hasUpcoming}"
+                          class="nk-product-card__badge nk-product-card__badge--date"
+                          th:text="${w.nextDateLabel}">jún. 21.</span>
+                    <span th:unless="${w.hasUpcoming}"
+                          class="nk-product-card__badge nk-product-card__badge--soon">Hamarosan</span>
+                </div>
+            </a>
+
+            <!-- Card body -->
+            <div class="nk-product-card__body">
+                <a class="nk-product-card__name-link" th:href="${w.url}">
+                    <div class="nk-product-card__name" th:text="${w.name}">Workshop neve</div>
+                </a>
+
+                <div class="nk-product-card__footer">
+                    <span class="nk-product-card__price"
+                          th:if="${w.priceFromFormatted}"
+                          th:text="${w.priceFromFormatted}">15 000 Ft</span>
+                    <a class="nk-product-card__cta nk-product-card__cta--view"
+                       th:href="${w.url}"
+                       th:aria-label="'Megnézem: ' + ${w.name}">Időpontok</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<th:block th:replace="~{fragments/layout :: island-script}"></th:block>
+</body>
+</html>

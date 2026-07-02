@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="_card.css" />
+<style>
+  .card { padding: 0; overflow: hidden; border: none; background: transparent; }
+  .stage {
+    background: var(--nk-white);
+    border: 1px solid var(--nk-border);
+    border-radius: var(--nk-radius-md);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .row { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--nk-border);
+    background: var(--nk-white);
+    font-family: 'Lora', serif;
+    font-size: 13px;
+    color: var(--nk-fg);
+  }
+  .chip.active { background: var(--nk-yellow-50); border-color: var(--nk-yellow-50); }
+  .chip img { width: 16px; height: 16px; }
+
+  .badge-circle {
+    position: relative; width: 100px; height: 100px; flex-shrink: 0;
+  }
+  .badge-circle img { width: 100%; height: 100%; }
+  .badge-circle .t {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-family: 'Caveat', cursive; font-size: 26px; font-weight: 600;
+    transform: rotate(-7deg);
+  }
+  .lbl { font-family: var(--nk-font-serif); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--nk-fg-subtle); margin-bottom: 6px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="stage">
+      <div>
+        <div class="lbl">Filter chips</div>
+        <div class="row">
+          <span class="chip active">Bútorfesték</span>
+          <span class="chip">Falfesték</span>
+          <span class="chip">Wax</span>
+          <span class="chip">Lakk</span>
+          <span class="chip"><img src="../assets/icons/brush.png" alt="" />Ecsetek</span>
+        </div>
+      </div>
+      <div>
+        <div class="lbl">Brushstroke badges</div>
+        <div class="row">
+          <div class="badge-circle"><img src="../assets/brushes/brush-circle-yellow.png" alt="" /><div class="t">Újdonság!</div></div>
+          <div class="badge-circle"><img src="../assets/brushes/brush-circle-yellow.png" alt="" /><div class="t">Akció</div></div>
+          <div class="badge-circle"><img src="../assets/brushes/brush-circle-gray.png" alt="" /><div class="t">Nézd meg</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

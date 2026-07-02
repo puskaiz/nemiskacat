@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="_card.css" />
+<style>
+  .card { gap: 14px; }
+  .item { display: grid; grid-template-columns: 110px 1fr 80px; gap: 16px; align-items: baseline; padding: 10px 0; border-bottom: 1px dotted var(--nk-border); }
+  .item:last-child { border-bottom: none; }
+  .tag { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--nk-fg-subtle); }
+  .specimen { font-family: 'Lora', serif; color: var(--nk-fg); line-height: 1.55; }
+  .px { font-family: var(--nk-font-mono); font-size: 11px; color: var(--nk-fg-muted); text-align: right; }
+  .bl { font-size: 18px; }
+  .bm { font-size: 15px; }
+  .bs { font-size: 13px; color: var(--nk-fg-muted); }
+  .cp { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--nk-fg-subtle); }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="item">
+      <div class="tag">Body L · 20</div>
+      <div class="specimen bl">A nemiskacat célja, hogy elérhetővé tegye az önkifejezés örömét — kézzel és színnel.</div>
+      <div class="px">20 / 1.65</div>
+    </div>
+    <div class="item">
+      <div class="tag">Body · 16</div>
+      <div class="specimen bm">A nemiskacat célja, hogy elérhetővé tegye az önkifejezés örömét és az alkotás minőségét mindazok számára.</div>
+      <div class="px">16 / 1.65</div>
+    </div>
+    <div class="item">
+      <div class="tag">Body S · 14</div>
+      <div class="specimen bs">Hivatalos Annie Sloan disztribútorként prémium festékekkel támogatjuk a bútorfestők közösségét.</div>
+      <div class="px">14 / 1.5</div>
+    </div>
+    <div class="item">
+      <div class="tag">Caption · 12</div>
+      <div class="specimen cp">Festékek webshop</div>
+      <div class="px">12 / 0.10em</div>
+    </div>
+  </div>
+</body>
+</html>

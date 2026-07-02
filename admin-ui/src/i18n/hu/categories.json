@@ -1,0 +1,10 @@
+{
+  "title": "Kategóriák",
+  "subtitle": "Termékek csoportosítása a boltban",
+  "colName": "Kategória",
+  "colSlug": "Slug",
+  "empty": "Nincs megjeleníthető kategória.",
+  "back": "Vissza a kategóriákhoz",
+  "notFound": "A kategória nem található.",
+  "readOnlyNote": "A termékkategóriák jelenleg a WooCommerce-importból származnak (csak olvasható)."
+}

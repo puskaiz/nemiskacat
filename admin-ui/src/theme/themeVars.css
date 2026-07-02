@@ -1,0 +1,49 @@
+@import "@fontsource/hanken-grotesk/400.css";
+@import "@fontsource/hanken-grotesk/500.css";
+@import "@fontsource/hanken-grotesk/600.css";
+@import "@fontsource/hanken-grotesk/700.css";
+@import "@fontsource/hanken-grotesk/800.css";
+
+:root,[data-theme="light"]{
+  --bg:#F7F8FA;--surface:#fff;--input:#F8FAFC;--th:#FBFCFD;--fill:#F1F5F9;
+  --border:#E5E8EC;--border-soft:#EEF0F3;--text:#0F172A;--muted:#475569;--faint:#94a3b8;
+  --accent:#16181D;--accent-fg:#16181D;--accent-soft:#ECECEE;
+  --secondary:#C20E1A;--danger:#C0392B;--signout:#DC4040;
+}
+[data-theme="dark"]{
+  --bg:#0E1525;--surface:#161E2E;--input:#1B2436;--th:#1B2436;--fill:#222C40;
+  --border:#2A3650;--border-soft:#222C40;--text:#E7ECF3;--muted:#9AA7BD;--faint:#6B7A93;
+  --accent:#3A4658;--accent-fg:#C9D3E2;--accent-soft:#232C3C;
+}
+body{font-family:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;}
+.ant-card,.ant-table-wrapper .ant-table{border-radius:3px;}
+.ant-btn{border-radius:999px;}
+.ant-card{box-shadow:0 1px 2px rgba(16,24,40,.04);}
+/* Dark-mode logo: the logo PNGs are transparent black ink, so invert renders
+   them as white ink on the dark sidebar (no background box). */
+[data-theme="dark"] [data-brandlogo]{filter:invert(1);}
+h1,h2,.page-title{letter-spacing:-0.3px;}
+
+/* TipTap (blog HtmlEditor) — the ProseMirror editable had no explicit text or
+   caret color, so the blinking cursor was invisible (and text unreadable in
+   dark mode). Pin both to the theme text color. */
+.nk-html-editor .ProseMirror{color:var(--text);caret-color:var(--text);outline:none;}
+.nk-html-editor .ProseMirror:focus{outline:none;}
+
+/* Prototype global rules (Admin Mid-fi HU.dc.html <style>): scrollbars,
+   responsive sidebar/hamburger/backdrop, and dense-table horizontal scroll. */
+*{box-sizing:border-box;}
+::-webkit-scrollbar{height:11px;width:11px;}
+::-webkit-scrollbar-thumb{background:#d3d8df;border-radius:3px;}
+::-webkit-scrollbar-track{background:transparent;}
+[data-role=hamburger]{display:none;}
+@media (max-width:880px){
+  [data-role=sidebar]{position:fixed !important;top:0;left:0;height:100vh;z-index:70;display:none !important;box-shadow:0 10px 40px rgba(16,24,40,.28);}
+  [data-role=sidebar][data-open=true]{display:flex !important;}
+  [data-role=hamburger]{display:flex !important;}
+  [data-role=backdrop][data-open=true]{display:block !important;}
+  [data-stack]{flex-wrap:wrap !important;}
+  [data-stack] > *{min-width:200px !important;}
+  [data-table]{overflow-x:auto;}
+  [data-table]>div{min-width:660px;}
+}

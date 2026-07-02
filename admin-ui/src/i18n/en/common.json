@@ -1,0 +1,16 @@
+{ "search": "Search…", "searchLong": "Search orders, products, people…", "signOut": "Sign out", "profileSettings": "Profile settings",
+  "changePassword": "Change password", "addPasskey": "Add passkey",
+  "notificationsMenu": "Notifications", "loading": "Loading…", "empty": "Nothing to show",
+  "errorTitle": "Something went wrong", "retry": "Retry", "save": "Save", "cancel": "Cancel",
+  "notifications": {
+    "success": "Success",
+    "error": "Error (status code: {{statusCode}})",
+    "undoable": "You have {{seconds}} seconds to undo",
+    "createSuccess": "Successfully created",
+    "createError": "There was an error creating (status code: {{statusCode}})",
+    "editSuccess": "Successfully saved",
+    "editError": "There was an error saving (status code: {{statusCode}})",
+    "deleteSuccess": "Successfully deleted",
+    "deleteError": "There was an error deleting (status code: {{statusCode}})",
+    "importProgress": "Importing: {{processed}}/{{total}}"
+  } }

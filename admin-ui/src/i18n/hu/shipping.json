@@ -1,0 +1,21 @@
+{
+  "title": "Szállítás",
+  "subtitle": "9 csomagolásra váró rendelés",
+  "carrierFilter": "Futár: összes",
+  "toPack": "Csomagolásra",
+  "ready": "Indításra kész",
+  "shipped": "Kiszállítva",
+  "pickup": "Pickup",
+  "selected": "{{count}} selected",
+  "printLabels": "Címkék nyomtatása",
+  "printDelivery": "Szállítólevél nyomtatása",
+  "markShipped": "Kiszállítottnak jelöl",
+  "order": "Order",
+  "customer": "Vásárló",
+  "items": "Tételek",
+  "destination": "Cél",
+  "method": "Mód",
+  "label": "Címke",
+  "print": "Print",
+  "footnote": "Egyeztetendő futár-integrációk: GLS · Foxpost · MPL · Packeta. Átvevőpontos rendelések az Átvétel fülön."
+}
