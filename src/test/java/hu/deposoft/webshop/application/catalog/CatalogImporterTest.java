@@ -3,6 +3,8 @@ package hu.deposoft.webshop.application.catalog;
 import hu.deposoft.webshop.domain.catalog.Category;
 import hu.deposoft.webshop.domain.catalog.CategoryRepository;
 import hu.deposoft.webshop.domain.catalog.Product;
+import hu.deposoft.webshop.domain.catalog.ProductImage;
+import hu.deposoft.webshop.domain.catalog.ProductImageRepository;
 import hu.deposoft.webshop.domain.catalog.ProductRepository;
 import hu.deposoft.webshop.domain.catalog.ProductTag;
 import hu.deposoft.webshop.domain.catalog.ProductTagRepository;
@@ -19,13 +21,18 @@ import hu.deposoft.webshop.integrations.woo.SourceVariant;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -42,11 +49,31 @@ class CatalogImporterTest {
     @ServiceConnection
     static final PostgreSQLContainer<?> POSTGRES = new PostgreSQLContainer<>("postgres:17");
 
+    /**
+     * Stub fetcher: maps each URL to deterministic tiny bytes so content-addressed
+     * storage keys are stable and distinct per URL. No network is hit (design §Testing).
+     */
+    @TestConfiguration
+    static class StubFetcherConfig {
+        static final Map<String, byte[]> BYTES = new ConcurrentHashMap<>();
+
+        @Bean
+        @Primary
+        ImageFetcher stubFetcher() {
+            return url -> new ImageFetcher.FetchedImage(
+                    BYTES.computeIfAbsent(url, u -> ("IMG-" + u).getBytes(StandardCharsets.UTF_8)),
+                    "image/jpeg");
+        }
+    }
+
     @Autowired
     CatalogImporter importer;
 
     @Autowired
     ProductRepository products;
+
+    @Autowired
+    ProductImageRepository images;
 
     @Autowired
     VariantRepository variants;
@@ -219,6 +246,51 @@ class CatalogImporterTest {
         Product p = products.findByExternalId(600L).orElseThrow();
         // product is in category woo 10 ("festekek"); woo 11 is its child
         assertThat(p.getCategories().iterator().next().getParent()).isNull();
+    }
+
+    @Test
+    void galleryImagesAreDownloadedIntoContentAddressedStorage() {
+        // Source images carry the legacy wp/ key; the importer must download the bytes
+        // and store them content-addressed (up/…), like the blog and workshop imports,
+        // instead of persisting the hot-link key.
+        SourceProduct p = new SourceProduct(900L, "downloaded-gallery", "Downloaded Gallery", "simple",
+                "publish", "short", "long", "", null, null,
+                List.of(10L), List.of(),
+                "DLG01", 3700L, null, null, null, true, 5, 250,
+                List.of(),
+                List.of(new SourceImage(950L, "wp/2024/01/main.jpg", "alt", 0, true)),
+                List.of());
+
+        ImportReport report = importer.run(catalogOf(List.of(p)));
+
+        assertThat(report.errors()).isEmpty();
+        Product product = products.findByExternalId(900L).orElseThrow();
+        List<ProductImage> gallery = images.findByProductOrderByPositionAsc(product);
+        assertThat(gallery).hasSize(1);
+        assertThat(gallery.getFirst().getStorageKey())
+                .describedAs("gallery image must be self-hosted (up/<hash>), not the wp/ hot-link key")
+                .startsWith("up/");
+    }
+
+    @Test
+    void descriptionInlineImagesAreRewrittenToLocalMedia() {
+        // Inline <img> tags in the product description point at the live WP uploads;
+        // the importer must download them into storage and rewrite src to /media/… .
+        String description = "<p>Leírás</p>"
+                + "<img src=\"https://nemiskacat.hu/wp-content/uploads/2024/01/inline.jpg\" alt=\"kép\">";
+        SourceProduct p = new SourceProduct(901L, "inline-desc", "Inline Desc", "simple",
+                "publish", "short", description, "", null, null,
+                List.of(10L), List.of(),
+                "IDS01", 3700L, null, null, null, true, 5, 250,
+                List.of(), List.of(), List.of());
+
+        ImportReport report = importer.run(catalogOf(List.of(p)));
+
+        assertThat(report.errors()).isEmpty();
+        Product product = products.findByExternalId(901L).orElseThrow();
+        assertThat(product.getDescription())
+                .contains("/media/up/")
+                .doesNotContain("wp-content/uploads");
     }
 
     @Test

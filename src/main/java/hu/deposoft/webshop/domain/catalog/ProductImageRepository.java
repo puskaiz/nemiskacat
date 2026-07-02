@@ -13,4 +13,8 @@ public interface ProductImageRepository extends JpaRepository<ProductImage, Long
     Optional<ProductImage> findFirstByProductOrderByPositionAsc(Product product);
 
     boolean existsByStorageKey(String storageKey);
+
+    /** All images whose key is still a legacy hot-link key (e.g. {@code wp/…}) — used by
+     *  the one-time image backfill to relocate them into local storage. */
+    java.util.List<ProductImage> findByStorageKeyStartingWith(String prefix);
 }

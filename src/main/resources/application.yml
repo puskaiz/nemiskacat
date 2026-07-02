@@ -61,8 +61,8 @@ khpos:
 
 webshop:
   version: "@project.version@"
-  # interim: the local WP serves the original images until object storage exists
-  images-base-url: ${IMAGE_BASE_URL:http://localhost/wp-content/uploads}
+  # interim: the live WP serves the original images until object storage exists
+  images-base-url: ${IMAGE_BASE_URL:https://nemiskacat.hu/wp-content/uploads}
   # Local disk root for uploaded product images (content-addressed). Replaced by
   # object storage later without touching the StorageService port.
   storage-dir: ${STORAGE_DIR:./data/uploads}

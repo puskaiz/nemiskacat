@@ -128,6 +128,25 @@ class WorkshopImporterTest {
     }
 
     @Test
+    void descriptionInlineImagesAreRewrittenToLocalMedia() {
+        // The workshop description embeds standalone <img> widgets hot-linked to the
+        // source site (workshop.nemiskacat.hu); the importer must pull them into storage
+        // and rewrite src to /media/…, like the blog import.
+        String descriptionHtml = "<h3>Galéria</h3>"
+                + "<img src=\"https://workshop.nemiskacat.hu/wp-content/uploads/2023/09/inline.jpg\" alt=\"\">";
+        SourceWorkshops source = new SourceWorkshops(List.of(new SourceWorkshop(
+                50001L, "inline-image-workshop", "Inline Image Workshop", descriptionHtml, List.of())));
+
+        WorkshopImportReport report = importer.run(source);
+
+        assertThat(report.errors()).isEmpty();
+        Product ws = products.findByExternalId(50001L).orElseThrow();
+        assertThat(ws.getDescription())
+                .contains("/media/up/")
+                .doesNotContain("wp-content/uploads");
+    }
+
+    @Test
     void reimportIsIdempotentUpdatingNameAndDescriptionButNotSlug() {
         importer.run(twoWorkshops(""));
 

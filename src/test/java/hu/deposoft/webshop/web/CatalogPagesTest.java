@@ -1,6 +1,7 @@
 package hu.deposoft.webshop.web;
 
 import hu.deposoft.webshop.application.catalog.CatalogImporter;
+import hu.deposoft.webshop.application.catalog.ImageFetcher;
 import hu.deposoft.webshop.integrations.woo.SourceAttribute;
 import hu.deposoft.webshop.integrations.woo.SourceAttributeValue;
 import hu.deposoft.webshop.integrations.woo.SourceCatalog;
@@ -12,7 +13,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,6 +49,16 @@ class CatalogPagesTest {
     @Container
     @ServiceConnection
     static final PostgreSQLContainer<?> POSTGRES = new PostgreSQLContainer<>("postgres:17");
+
+    /** No network in tests: the catalog import now downloads images, so stub the fetcher. */
+    @TestConfiguration
+    static class StubFetcherConfig {
+        @Bean
+        @Primary
+        ImageFetcher stubFetcher() {
+            return url -> new ImageFetcher.FetchedImage(("IMG-" + url).getBytes(), "image/jpeg");
+        }
+    }
 
     @Autowired
     WebApplicationContext context;
