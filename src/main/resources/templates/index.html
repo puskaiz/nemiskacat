@@ -106,9 +106,9 @@
             )}"></div>
 
             <div class="nk-prod-grid">
-                <div th:each="item : ${home.featured}"
-                     th:replace="~{fragments/components :: productCard(${item})}">
-                </div>
+                <th:block th:each="item : ${home.featured}">
+                    <div th:replace="~{fragments/components :: productCard(${item})}"></div>
+                </th:block>
             </div>
         </div>
     </section>
