@@ -16,6 +16,8 @@ import hu.deposoft.webshop.domain.catalog.ProductTagRepository;
 import hu.deposoft.webshop.domain.catalog.ProductType;
 import hu.deposoft.webshop.domain.catalog.Variant;
 import hu.deposoft.webshop.domain.catalog.VariantRepository;
+import hu.deposoft.webshop.application.content.InlineImageRewriter;
+import hu.deposoft.webshop.config.WebshopProperties;
 import hu.deposoft.webshop.integrations.woo.SourceCatalog;
 import hu.deposoft.webshop.integrations.woo.SourceCategory;
 import hu.deposoft.webshop.integrations.woo.SourceProduct;
@@ -51,6 +53,10 @@ public class CatalogImporter {
     private final ProductRepository products;
     private final VariantRepository variants;
     private final ProductImageRepository images;
+    private final ImageFetcher imageFetcher;
+    private final StorageService storage;
+    private final WebshopProperties properties;
+    private final InlineImageRewriter inlineImageRewriter;
 
     @Transactional
     public ImportReport run(SourceCatalog catalog) {
@@ -174,7 +180,12 @@ public class CatalogImporter {
         product.setName(source.name());
         product.setStatus(status);
         product.setShortDescription(source.shortDescription());
-        product.setDescription(source.description());
+        // Pull inline wp-content images into local storage and rewrite src to /media/…,
+        // like the blog and page imports (CLAUDE.md #8) — never hot-link the source site.
+        InlineImageRewriter.Result description = inlineImageRewriter.rewrite(source.description());
+        product.setDescription(description.html());
+        description.errors().forEach(e -> report.error(
+                "product woo_id=%d description image: %s".formatted(source.wooId(), e)));
         product.setTaxClass(source.taxClass());
         product.setSeoTitle(source.seoTitle());
         product.setMetaDescription(source.metaDescription());
@@ -209,14 +220,28 @@ public class CatalogImporter {
         }
 
         for (var si : source.images()) {
-            ProductImage image = images.findByProductAndStorageKey(product, si.storageKey()).orElse(null);
-            if (image == null) {
-                images.save(ProductImage.create(product, si.storageKey(), si.alt(), si.position(), si.featured()));
-                report.imageCreated();
-            } else {
-                image.setAlt(si.alt());
-                image.setPosition(si.position());
-                image.setFeatured(si.featured());
+            // The source carries the legacy wp/ key; download the bytes and store them
+            // content-addressed (up/<hash>), like the workshop and blog imports, so the
+            // shop serves the images itself instead of hot-linking the source site.
+            // Idempotent: identical bytes yield the same key (CLAUDE.md #4, #8).
+            String sourceUrl = properties.imageUrl(si.storageKey());
+            try {
+                ImageFetcher.FetchedImage fetched = imageFetcher.fetch(sourceUrl);
+                String storageKey = storage.put(fetched.bytes(), fetched.contentType());
+                ProductImage image = images.findByProductAndStorageKey(product, storageKey).orElse(null);
+                if (image == null) {
+                    images.save(ProductImage.create(product, storageKey, si.alt(), si.position(), si.featured()));
+                    report.imageCreated();
+                } else {
+                    image.setAlt(si.alt());
+                    image.setPosition(si.position());
+                    image.setFeatured(si.featured());
+                }
+            } catch (RuntimeException e) {
+                report.error("product woo_id=%d image %s: %s"
+                        .formatted(source.wooId(), si.storageKey(), e.getMessage()));
+                log.warn("Image import failed for product woo_id={} key={}",
+                        source.wooId(), si.storageKey(), e);
             }
         }
     }

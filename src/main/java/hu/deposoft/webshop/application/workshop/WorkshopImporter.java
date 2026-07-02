@@ -2,6 +2,7 @@ package hu.deposoft.webshop.application.workshop;
 
 import hu.deposoft.webshop.application.catalog.ImageFetcher;
 import hu.deposoft.webshop.application.catalog.StorageService;
+import hu.deposoft.webshop.application.content.InlineImageRewriter;
 import hu.deposoft.webshop.domain.catalog.FulfilmentType;
 import hu.deposoft.webshop.domain.catalog.InvoiceSource;
 import hu.deposoft.webshop.domain.catalog.Product;
@@ -41,6 +42,7 @@ public class WorkshopImporter {
     private final ProductImageRepository images;
     private final StorageService storage;
     private final ImageFetcher imageFetcher;
+    private final InlineImageRewriter inlineImageRewriter;
 
     @Transactional
     public WorkshopImportReport run(SourceWorkshops source) {
@@ -82,7 +84,12 @@ public class WorkshopImporter {
         }
         // On update set name + description; never the slug, never sessions/variants.
         product.setName(source.name());
-        product.setDescription(source.descriptionHtml());
+        // Inline <img> widgets in the description hot-link the source site; download them
+        // into local storage and rewrite src to /media/… like the blog import (CLAUDE.md #8).
+        InlineImageRewriter.Result description = inlineImageRewriter.rewrite(source.descriptionHtml());
+        product.setDescription(description.html());
+        description.errors().forEach(e -> report.error(
+                "workshop external_id=%d description image: %s".formatted(source.externalId(), e)));
 
         upsertGallery(product, source, report);
     }

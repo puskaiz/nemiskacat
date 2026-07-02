@@ -69,6 +69,12 @@ public class ProductImage {
         return i;
     }
 
+    /** Repoint the image at a new storage key after its bytes are moved into local
+     *  content-addressed storage (image backfill). The binary is otherwise immutable. */
+    public void relocateStorage(String newStorageKey) {
+        this.storageKey = newStorageKey;
+    }
+
     @PrePersist
     void onCreate() {
         createdAt = OffsetDateTime.now(ZoneOffset.UTC);
