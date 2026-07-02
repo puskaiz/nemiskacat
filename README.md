@@ -63,11 +63,40 @@ Steps:
    `PORT` is injected by Railway automatically (the app binds `server.port=${PORT}`).
    Add integration secrets (KHPos, Billingo, Instagram, …) as separate variables when
    those features are enabled — never commit them.
-3. Deploy. Flyway runs the migrations on first boot; the health check turns green
-   once `/actuator/health` reports `UP`.
+3. Add a **Volume** to the app service for uploaded images. `FilesystemStorageService`
+   writes content-addressed image files under `STORAGE_DIR` and `MediaController`
+   serves them at `/media/**`; the container filesystem is ephemeral, so without a
+   volume every upload is lost on redeploy. Mount the volume at `/data` and set:
+
+   ```
+   STORAGE_DIR=/data/uploads
+   ```
+
+   To seed the volume with existing images (the local `data/uploads/` tree), stream
+   them in over Railway SSH — the files must live on the volume, they are not in git:
+
+   ```bash
+   # one-time: register an ed25519 key + an SSH config alias for the service
+   railway ssh keys add -k ~/.ssh/id_ed25519.pub
+   railway ssh config --alias railway-webshop -i ~/.ssh/id_ed25519 --service <app-service>
+   # copy (COPYFILE_DISABLE avoids macOS AppleDouble ._* sidecars); idempotent
+   COPYFILE_DISABLE=1 tar cf - -C data uploads \
+     | ssh -o IdentitiesOnly=yes -i ~/.ssh/id_ed25519 railway-webshop 'tar xf - -C /data'
+   ```
+
+   Keys are the SHA-256 of the content, so re-running just overwrites identical files.
+4. Deploy. Flyway runs the migrations on first boot; the health check turns green
+   once `/actuator/health` reports `UP` (the check includes a DB probe, so it only
+   passes once Postgres is reachable).
 
 Tests are **not** run during the image build (they need a Testcontainers Docker
 daemon that the build sandbox lacks); run `mvn verify` in CI instead.
+
+> **Data migration.** To move an existing local database into the Railway Postgres,
+> dump the `public` schema (including `flyway_schema_history`, so the app sees the
+> migrations as already applied) and restore it via the plugin's public proxy URL —
+> version-matched client, e.g. `docker run --rm postgres:18 …`. Exclude any
+> server-local extensions the stock Railway Postgres lacks (e.g. `timescaledb`).
 
 ## Status
 
