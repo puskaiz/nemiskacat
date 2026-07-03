@@ -1118,6 +1118,21 @@ aside.sum .ship { font-size: var(--nk-fs-caption); color: var(--nk-fg-subtle); m
     gap: 24px;
 }
 
+/* One-line horizontal product slider (homepage featured) */
+.nk-prod-slider {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 12px;        /* room for scrollbar without clipping cards */
+    scrollbar-width: thin;
+}
+.nk-prod-slider > * {
+    flex: 0 0 clamp(200px, 22%, 260px);
+    scroll-snap-align: start;
+}
+
 /* ── Workshop Card ────────────────────────────────────────────────────────── */
 .nk-workshop-section {
     padding: var(--nk-space-9) 0;
@@ -1133,13 +1148,22 @@ aside.sum .ship { font-size: var(--nk-fs-caption); color: var(--nk-fg-subtle); m
     overflow: hidden;
 }
 
-/* Placeholder: warm photo gradient (real image drops in later) */
+/* Real workshop image fills its grid cell */
 .nk-workshop__img {
+    min-height: 280px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Placeholder variant: warm photo gradient when no image available */
+.nk-workshop__img--placeholder {
+    object-fit: initial;
     background:
         radial-gradient(circle at 30% 30%, rgba(245,223,161,.70), transparent 55%),
         radial-gradient(circle at 70% 70%, rgba(214,207,201,.55), transparent 50%),
         var(--nk-bg-muted);
-    min-height: 280px;
 }
 
 .nk-workshop__body {
@@ -1546,6 +1570,7 @@ aside.sum .ship { font-size: var(--nk-fs-caption); color: var(--nk-fg-subtle); m
 .nk-why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .nk-why-item { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
 .nk-why-item__icon { width: 48px; height: 48px; }
+.nk-why-item__img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--nk-radius-md); margin-bottom: 4px; }
 .nk-why-item__title { font-family: var(--nk-font-serif); font-size: 1.15rem; margin: 0; }
 .nk-why-item__desc { color: var(--nk-fg-muted); font-size: var(--nk-fs-body-s); line-height: var(--nk-lh-relaxed); margin: 0; }
 
@@ -1561,7 +1586,8 @@ aside.sum .ship { font-size: var(--nk-fs-caption); color: var(--nk-fg-subtle); m
 /* In-store / showroom */
 .nk-store-section { padding: var(--nk-space-9) 0; background: var(--nk-bg-tone); }
 .nk-store { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-.nk-store__img { position: relative; aspect-ratio: 4 / 3; background: var(--nk-bg-muted); border-radius: var(--nk-radius-md); }
+.nk-store__img { position: relative; aspect-ratio: 4 / 3; background: var(--nk-bg-muted); border-radius: var(--nk-radius-md); overflow: hidden; }
+.nk-store__photo { width: 100%; height: 100%; object-fit: cover; display: block; }
 .nk-store__img-tag { position: absolute; left: 14px; bottom: 14px; background: rgba(255,255,255,.92); padding: 6px 12px; border-radius: var(--nk-radius-pill); font-size: var(--nk-fs-caption); }
 .nk-store__eyebrow { font-size: var(--nk-fs-caption); letter-spacing: var(--nk-tracking-wide); text-transform: uppercase; font-weight: 600; color: var(--nk-fg-subtle); }
 .nk-store__title { font-family: var(--nk-font-serif); font-size: 2rem; margin: 8px 0 12px; }
@@ -1579,6 +1605,11 @@ aside.sum .ship { font-size: var(--nk-fs-caption); color: var(--nk-fg-subtle); m
 .nk-blog-grid .nk-blog-card__media { flex: none; width: 100%; aspect-ratio: 3 / 2; }
 .nk-blog-grid .nk-blog-card__body { flex: none; justify-content: flex-start; }
 .nk-latest__more { text-align: center; margin-top: var(--nk-space-7, 32px); }
+
+/* Video section — "Bútort festenél vagy dekorálnál?" */
+.nk-video-section { padding: var(--nk-space-9) 0; background: var(--nk-bg-tone); }
+.nk-video { max-width: 900px; margin: 0 auto; aspect-ratio: 16 / 9; border-radius: var(--nk-radius-lg); overflow: hidden; box-shadow: var(--nk-shadow-md, 0 8px 30px rgba(0,0,0,.12)); }
+.nk-video__frame { width: 100%; height: 100%; border: 0; display: block; }
 
 /* Closing CTA banner */
 .nk-cta-banner { padding: var(--nk-space-9) 0; background: var(--nk-bg-tone); text-align: center; }

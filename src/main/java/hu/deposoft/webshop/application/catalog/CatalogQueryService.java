@@ -281,6 +281,33 @@ public class CatalogQueryService {
                 .map(e -> toWorkshopListItem(e.getValue(), now));
     }
 
+    /**
+     * Workshop card for the homepage. Prefers the soonest upcoming workshop; when
+     * none is scheduled, falls back to the most recent workshop (latest session
+     * date) so the homepage always shows a workshop with its image. The fallback
+     * carries no date label and {@code hasUpcoming=false}.
+     */
+    public Optional<WorkshopListItemView> featuredWorkshop() {
+        Optional<WorkshopListItemView> upcoming = nextWorkshop();
+        if (upcoming.isPresent()) {
+            return upcoming;
+        }
+        OffsetDateTime now = OffsetDateTime.now(ZoneOffset.UTC);
+        return products.findByTypeAndStatus(ProductType.WORKSHOP, ProductStatus.PUBLISHED).stream()
+                .map(p -> {
+                    OffsetDateTime latest = p.getVariants().stream()
+                            .map(v -> workshopSessions.findByVariantId(v.getId()).orElse(null))
+                            .filter(java.util.Objects::nonNull)
+                            .map(WorkshopSession::getStartAt)
+                            .max(OffsetDateTime::compareTo)
+                            .orElse(null);
+                    return latest != null ? Map.entry(latest, p) : null;
+                })
+                .filter(java.util.Objects::nonNull)
+                .max(Map.Entry.comparingByKey())
+                .map(e -> toWorkshopListItem(e.getValue(), now));
+    }
+
     private WorkshopListItemView toWorkshopListItem(Product product, OffsetDateTime now) {
         List<WorkshopSession> upcoming = product.getVariants().stream()
                 .map(v -> workshopSessions.findByVariantId(v.getId()).orElse(null))

@@ -94,38 +94,7 @@
 
 
     <!-- ═══════════════════════════════════════════════════════
-         CATEGORY GRID — real data from home.categories
-    ════════════════════════════════════════════════════════════ -->
-    <section class="nk-cat-section">
-        <div class="wrap">
-            <!-- sectionHeader(eyebrow, title, sub) fragment -->
-            <div th:replace="~{fragments/components :: sectionHeader(
-                'Festékek webshop',
-                'Minden, ami a jó alkotáshoz kell.',
-                'Bútorfestékek, falfestékek, waxok, tartós Polyvine lakkok, Iron Orchid Designs bútordekor, Zibra ecsetek — gondosan válogatva, raktárról szállítva.'
-            )}"></div>
-
-            <div class="nk-cat-grid">
-                <a class="nk-cat-tile"
-                   th:each="cat : ${home.categories}"
-                   th:href="${cat.url}">
-                    <img class="nk-cat-tile__icon"
-                         th:src="'/design/assets/icons/' + ${cat.iconKey} + '.png'"
-                         th:alt="${cat.name}"
-                         width="64" height="64">
-                    <div class="nk-cat-tile__body">
-                        <div class="nk-cat-tile__name" th:text="${cat.name}">Kategória</div>
-                        <div class="nk-cat-tile__count"
-                             th:text="${cat.productCount} + ' termék'">0 termék</div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- ═══════════════════════════════════════════════════════
-         FEATURED PRODUCTS — real data from home.featured
+         FEATURED PRODUCTS — real data from home.featured (one-line slider)
     ════════════════════════════════════════════════════════════ -->
     <section class="nk-featured-section">
         <div class="wrap">
@@ -135,7 +104,7 @@
                 null
             )}"></div>
 
-            <div class="nk-prod-grid">
+            <div class="nk-prod-slider">
                 <th:block th:each="item : ${home.featured}">
                     <div th:replace="~{fragments/components :: productCard(${item})}"></div>
                 </th:block>
@@ -156,19 +125,19 @@
             )}"></div>
             <div class="nk-why-grid">
                 <div class="nk-why-item">
-                    <img class="nk-why-item__icon" src="/design/assets/icons/idea.png" alt="" width="48" height="48">
+                    <img class="nk-why-item__img" src="/media/home/why-easy.jpg" alt="Bútorfiók festése egyszerűen" loading="lazy">
                     <h3 class="nk-why-item__title">Tényleg egyszerű, nem tudom elrontani!</h3>
                     <p class="nk-why-item__desc">A krétafesték csiszolás és alapozás nélkül tapad szinte bármire. Pár óra alatt látványos eredményt érsz el — kezdőként is bátran belevághatsz.</p>
                     <a href="/butorfestes-kezdoknek" class="btn-link">Mutasd, hogyan kezdjem?</a>
                 </div>
                 <div class="nk-why-item">
-                    <img class="nk-why-item__icon" src="/design/assets/icons/house.png" alt="" width="48" height="48">
+                    <img class="nk-why-item__img" src="/media/home/why-clean.jpg" alt="Tiszta, pormentes bútorfestés" loading="lazy">
                     <h3 class="nk-why-item__title">Nem akarok rumlit és koszt a lakásban!</h3>
                     <p class="nk-why-item__desc">Nincs porzó csiszolás, nincs büdös hígító — a krétafesték vízbázisú, beltérben is kényelmesen, tisztán használható.</p>
                     <a href="/termekkategoria/kretafestek-annie-sloan-chalk-paint/" class="btn-link">Megnézem a festékeket</a>
                 </div>
                 <div class="nk-why-item">
-                    <img class="nk-why-item__icon" src="/design/assets/icons/brush.png" alt="" width="48" height="48">
+                    <img class="nk-why-item__img" src="/media/home/why-color.jpg" alt="Színválasztás festékmintákkal" loading="lazy">
                     <h3 class="nk-why-item__title">Félek, hogy nem jól választok színt!</h3>
                     <p class="nk-why-item__desc">Színkártyák és színminták segítenek dönteni, mi pedig személyesen is tanácsot adunk — így biztosra mehetsz a színválasztásban.</p>
                     <a href="/termekkategoria/festek-szinkartya-szinminta/" class="btn-link">Megnézem a színmintákat</a>
@@ -202,7 +171,9 @@
     <section class="nk-store-section">
         <div class="wrap">
             <div class="nk-store">
-                <div class="nk-store__img" aria-hidden="true">
+                <div class="nk-store__img">
+                    <img class="nk-store__photo" src="/media/home/store.jpg"
+                         alt="Nemiskacat bemutatóterem Biatorbágyon" loading="lazy">
                     <div class="nk-store__img-tag">Biatorbágy · Csillag u. 7.</div>
                 </div>
                 <div class="nk-store__text">
@@ -242,10 +213,17 @@
 
             <!-- Upcoming workshop (nextWorkshop != null) -->
             <div class="nk-workshop" th:if="${home.nextWorkshop != null}">
-                <div class="nk-workshop__img" aria-hidden="true"></div>
+                <img th:if="${home.nextWorkshop.imageUrl}"
+                     class="nk-workshop__img"
+                     th:src="${home.nextWorkshop.imageUrl}"
+                     th:alt="${home.nextWorkshop.name}"
+                     loading="lazy">
+                <div th:unless="${home.nextWorkshop.imageUrl}" class="nk-workshop__img nk-workshop__img--placeholder" aria-hidden="true"></div>
                 <div class="nk-workshop__body">
                     <h3 class="nk-workshop__name" th:text="${home.nextWorkshop.name}">Workshop neve</h3>
-                    <div class="nk-workshop__date" th:text="${home.nextWorkshop.nextDateLabel}">Dátum</div>
+                    <div class="nk-workshop__date"
+                         th:if="${home.nextWorkshop.nextDateLabel}"
+                         th:text="${home.nextWorkshop.nextDateLabel}">Dátum</div>
                     <p class="nk-workshop__desc">
                         Gyere el, próbáld ki a krétafestéket, és alkotj valami egyedit
                         saját kezűleg. A nyersanyagokat mi adjuk, a kreativitást Te hozod.
@@ -306,6 +284,29 @@
 
             <div class="nk-latest__more">
                 <a href="/blog" class="btn btn-secondary">Megnézem a többi cikket is!</a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         VIDEO — "Bútort festenél vagy dekorálnál?" (static, YouTube embed)
+    ════════════════════════════════════════════════════════════ -->
+    <section class="nk-video-section">
+        <div class="wrap">
+            <div th:replace="~{fragments/components :: sectionHeader(
+                'Videó',
+                'Bútort festenél vagy dekorálnál?',
+                'Ismerős… én is így kezdtem! Indítsd el a videót!'
+            )}"></div>
+
+            <div class="nk-video">
+                <iframe class="nk-video__frame"
+                        src="https://www.youtube-nocookie.com/embed/yK1GmSsvyxc"
+                        title="Bútort festenél vagy dekorálnál?"
+                        loading="lazy"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
             </div>
         </div>
     </section>

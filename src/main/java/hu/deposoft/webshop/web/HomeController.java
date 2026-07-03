@@ -29,7 +29,7 @@ public class HomeController {
         model.addAttribute("home", new HomePageView(
                 catalogQueryService.topLevelCategories(),
                 catalogQueryService.featuredProducts(8),
-                catalogQueryService.nextWorkshop().orElse(null)));
+                catalogQueryService.featuredWorkshop().orElse(null)));
         // Latest blog cards (template takes the first 3). Session-independent.
         model.addAttribute("latestPosts", blogQueryService.publishedList(1).items());
         return "index";
