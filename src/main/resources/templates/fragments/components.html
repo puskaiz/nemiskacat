@@ -109,5 +109,40 @@
     </a>
 </div>
 
+<!--
+  blogCard(item)
+  A blog post card (mirrors blog/list.html). item: BlogListItem(slug, title,
+  excerpt, coverImageUrl, categories, publishedDate). Posts are served at /{slug}.
+-->
+<article th:fragment="blogCard(item)" class="nk-blog-card">
+    <div class="nk-blog-card__media">
+        <a th:href="@{'/' + ${item.slug}}" class="nk-blog-card__image-link" tabindex="-1" aria-hidden="true">
+            <img th:if="${item.coverImageUrl}"
+                 class="nk-blog-card__image"
+                 th:src="${item.coverImageUrl}"
+                 alt=""
+                 loading="lazy"/>
+            <span th:unless="${item.coverImageUrl}"
+                  class="nk-blog-card__image nk-blog-card__image--placeholder"></span>
+        </a>
+        <div class="nk-blog-card__cats" th:if="${!item.categories.isEmpty()}">
+            <a th:each="c : ${item.categories}"
+               th:href="@{'/blog/kategoria/' + ${c.slug}}"
+               th:text="${c.name}"
+               class="nk-blog-card__cat">kategória</a>
+        </div>
+    </div>
+    <div class="nk-blog-card__body">
+        <a th:href="@{'/' + ${item.slug}}" class="nk-blog-card__title-link">
+            <h2 class="nk-blog-card__title" th:text="${item.title}">Cím</h2>
+        </a>
+        <p class="nk-blog-card__date"
+           th:if="${item.publishedDate}"
+           th:text="${#temporals.format(item.publishedDate, 'yyyy. MM. dd.')}">dátum</p>
+        <p class="nk-blog-card__excerpt" th:if="${item.excerpt}" th:text="${item.excerpt}">kivonat</p>
+        <a class="nk-blog-card__readmore" th:href="@{'/' + ${item.slug}}">Tovább olvasom »</a>
+    </div>
+</article>
+
 </body>
 </html>

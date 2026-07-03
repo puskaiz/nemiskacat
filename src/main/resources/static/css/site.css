@@ -1528,3 +1528,75 @@ aside.sum .ship { font-size: var(--nk-fs-caption); color: var(--nk-fg-subtle); m
 .nk-social-icons__link:hover { opacity: 1; }
 .nk-social-icons__link svg { width: 16px; height: 16px; }
 .nk-social-icons__label { font-size: 12px; }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   Homepage content-parity sections (2026-07-03) — mirrors nemiskacat.hu
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* Three pillars */
+.nk-pillars-section { padding: var(--nk-space-9) 0; background: var(--nk-bg); }
+.nk-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.nk-pillar { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: var(--nk-space-6); background: var(--nk-bg-tone); border: 1px solid var(--nk-border); border-radius: var(--nk-radius-md); }
+.nk-pillar__icon { width: 48px; height: 48px; }
+.nk-pillar__title { font-family: var(--nk-font-serif); font-size: 1.25rem; margin: 0; }
+.nk-pillar__desc { color: var(--nk-fg-muted); font-size: var(--nk-fs-body-s); line-height: var(--nk-lh-relaxed); margin: 0; flex: 1 0 auto; }
+
+/* Why us */
+.nk-why-section { padding: var(--nk-space-9) 0; background: var(--nk-bg-tone); }
+.nk-why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.nk-why-item { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+.nk-why-item__icon { width: 48px; height: 48px; }
+.nk-why-item__title { font-family: var(--nk-font-serif); font-size: 1.15rem; margin: 0; }
+.nk-why-item__desc { color: var(--nk-fg-muted); font-size: var(--nk-fs-body-s); line-height: var(--nk-lh-relaxed); margin: 0; }
+
+/* Beginner download */
+.nk-download-section { padding: var(--nk-space-9) 0; background: var(--nk-bg); }
+.nk-download { background: var(--nk-yellow-50); border-radius: var(--nk-radius-md); padding: var(--nk-space-8); }
+.nk-download__text { max-width: 62ch; }
+.nk-download__eyebrow { font-size: var(--nk-fs-caption); letter-spacing: var(--nk-tracking-wide); text-transform: uppercase; font-weight: 600; color: var(--nk-fg-subtle); }
+.nk-download__title { font-family: var(--nk-font-serif); font-size: 2rem; margin: 8px 0 12px; }
+.nk-download__quote { font-style: italic; font-size: 1.1rem; margin: 0 0 12px; border-left: 3px solid var(--nk-black, #111); padding-left: 14px; }
+.nk-download__desc { color: var(--nk-fg); opacity: .85; margin: 0 0 18px; }
+
+/* In-store / showroom */
+.nk-store-section { padding: var(--nk-space-9) 0; background: var(--nk-bg-tone); }
+.nk-store { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+.nk-store__img { position: relative; aspect-ratio: 4 / 3; background: var(--nk-bg-muted); border-radius: var(--nk-radius-md); }
+.nk-store__img-tag { position: absolute; left: 14px; bottom: 14px; background: rgba(255,255,255,.92); padding: 6px 12px; border-radius: var(--nk-radius-pill); font-size: var(--nk-fs-caption); }
+.nk-store__eyebrow { font-size: var(--nk-fs-caption); letter-spacing: var(--nk-tracking-wide); text-transform: uppercase; font-weight: 600; color: var(--nk-fg-subtle); }
+.nk-store__title { font-family: var(--nk-font-serif); font-size: 2rem; margin: 8px 0 12px; }
+.nk-store__para { color: var(--nk-fg-muted); line-height: var(--nk-lh-relaxed); margin: 0 0 18px; }
+
+/* Workshop benefits list */
+.nk-workshop-benefits { list-style: none; padding: 0; margin: 0 0 var(--nk-space-6); display: grid; gap: 8px; }
+.nk-workshop-benefits li { position: relative; padding-left: 28px; color: var(--nk-fg-muted); }
+.nk-workshop-benefits li::before { content: "✓"; position: absolute; left: 0; color: var(--nk-yellow-60, #e0a500); font-weight: 700; }
+
+/* Latest blog posts — vertical cards in a 3-col grid (override list row layout) */
+.nk-latest-section { padding: var(--nk-space-9) 0; background: var(--nk-bg); }
+.nk-blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.nk-blog-grid .nk-blog-card { flex-direction: column; gap: var(--nk-space-4); }
+.nk-blog-grid .nk-blog-card__media { flex: none; width: 100%; aspect-ratio: 3 / 2; }
+.nk-blog-grid .nk-blog-card__body { flex: none; justify-content: flex-start; }
+.nk-latest__more { text-align: center; margin-top: var(--nk-space-7, 32px); }
+
+/* Closing CTA banner */
+.nk-cta-banner { padding: var(--nk-space-9) 0; background: var(--nk-bg-tone); text-align: center; }
+.nk-cta-banner__title { font-family: var(--nk-font-serif); font-size: 2.4rem; margin: 0 0 8px; }
+.nk-cta-banner__sub { color: var(--nk-fg-muted); margin: 0 0 20px; }
+
+/* FAQ accordion (native <details>) */
+.nk-faq-section { padding: var(--nk-space-9) 0; background: var(--nk-bg); }
+.nk-faq { max-width: 760px; margin: 0 auto; }
+.nk-faq__item { border-bottom: 1px solid var(--nk-border); }
+.nk-faq__item summary { cursor: pointer; padding: 16px 0; font-weight: 600; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.nk-faq__item summary::-webkit-details-marker { display: none; }
+.nk-faq__item summary::after { content: "+"; font-size: 1.3rem; color: var(--nk-fg-subtle); }
+.nk-faq__item[open] summary::after { content: "\2013"; }
+.nk-faq__item p { margin: 0 0 16px; color: var(--nk-fg-muted); line-height: var(--nk-lh-relaxed); }
+
+/* Homepage sections — responsive */
+@media (max-width: 900px) {
+    .nk-pillars, .nk-why-grid, .nk-blog-grid { grid-template-columns: 1fr; }
+    .nk-store { grid-template-columns: 1fr; gap: 24px; }
+}

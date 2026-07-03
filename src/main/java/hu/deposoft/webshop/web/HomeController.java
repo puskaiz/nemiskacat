@@ -1,6 +1,7 @@
 package hu.deposoft.webshop.web;
 
 import hu.deposoft.webshop.application.AppInfoService;
+import hu.deposoft.webshop.application.blog.BlogQueryService;
 import hu.deposoft.webshop.application.catalog.CatalogQueryService;
 import hu.deposoft.webshop.application.catalog.CatalogQueryService.HomePageView;
 import lombok.RequiredArgsConstructor;
@@ -20,14 +21,17 @@ public class HomeController {
 
     private final AppInfoService appInfoService;
     private final CatalogQueryService catalogQueryService;
+    private final BlogQueryService blogQueryService;
 
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("appName", appInfoService.currentInfo().name());
         model.addAttribute("home", new HomePageView(
                 catalogQueryService.topLevelCategories(),
-                catalogQueryService.featuredProducts(4),
+                catalogQueryService.featuredProducts(8),
                 catalogQueryService.nextWorkshop().orElse(null)));
+        // Latest blog cards (template takes the first 3). Session-independent.
+        model.addAttribute("latestPosts", blogQueryService.publishedList(1).items());
         return "index";
     }
 }

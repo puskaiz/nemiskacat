@@ -37,10 +37,11 @@
                         <a href="/termekkategoria/kretafestek-annie-sloan-chalk-paint/"
                            class="btn btn-primary nk-hero__cta-primary">
                             <img src="/design/assets/icons/brush.png" alt="" width="22" height="22">
-                            Megyek a webshopba
+                            Termékeket keresek a webshopban
                         </a>
-                        <!-- Ghost link -->
-                        <a href="/workshopok" class="btn-link nk-hero__cta-ghost">Inspirálódom</a>
+                        <!-- Secondary ghost links -->
+                        <a href="/blog" class="btn-link nk-hero__cta-ghost">Megyek olvasni, inspirálódni</a>
+                        <a href="/workshopok" class="btn-link nk-hero__cta-ghost">Megnézem a workshopokat</a>
                     </div>
                 </div>
 
@@ -58,6 +59,35 @@
                     <div class="nk-hero__photo-tag">Annie Sloan · őszi paletta</div>
                 </div>
 
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         THREE PILLARS — webshop / knowledge / workshops (static)
+    ════════════════════════════════════════════════════════════ -->
+    <section class="nk-pillars-section">
+        <div class="wrap">
+            <div class="nk-pillars">
+                <div class="nk-pillar">
+                    <img class="nk-pillar__icon" src="/design/assets/icons/paint-can.png" alt="" width="48" height="48">
+                    <h3 class="nk-pillar__title">Festékek webshop</h3>
+                    <p class="nk-pillar__desc">Bútorfestékek, falfestékek, waxok, lakkok, ecsetek és bútordekor — minden egy helyen, raktárról szállítva.</p>
+                    <a href="/termekkategoria/kretafestek-annie-sloan-chalk-paint/" class="btn btn-secondary">Termékeket keresek</a>
+                </div>
+                <div class="nk-pillar">
+                    <img class="nk-pillar__icon" src="/design/assets/icons/idea.png" alt="" width="48" height="48">
+                    <h3 class="nk-pillar__title">Bútorfelújítás tudásanyagok</h3>
+                    <p class="nk-pillar__desc">Blogcikkek és részletes tutorial videók bútorfestés, felújítás és lakberendezés témában — kéthetente frissülve.</p>
+                    <a href="/blog" class="btn btn-secondary">Megyek olvasni, inspirálódni</a>
+                </div>
+                <div class="nk-pillar">
+                    <img class="nk-pillar__icon" src="/design/assets/icons/workshop.png" alt="" width="48" height="48">
+                    <h3 class="nk-pillar__title">Workshopok</h3>
+                    <p class="nk-pillar__desc">Személyes foglalkozások, ahol kézzel foghatóan megtanulod a krétafestés fortélyait — kezdőként is.</p>
+                    <a href="/workshopok" class="btn btn-secondary">Megnézem a workshopokat</a>
+                </div>
             </div>
         </div>
     </section>
@@ -100,8 +130,8 @@
     <section class="nk-featured-section">
         <div class="wrap">
             <div th:replace="~{fragments/components :: sectionHeader(
-                'Kiemelt termékek',
-                'A bátrabb otthonok kedvencei.',
+                'Legnépszerűbb termékeink',
+                'TOP termékeink, amivel kezdőként is kiemelkedőt alkothatsz.',
                 null
             )}"></div>
 
@@ -115,15 +145,100 @@
 
 
     <!-- ═══════════════════════════════════════════════════════
+         WHY US — value proposition, 3 reasons (static)
+    ════════════════════════════════════════════════════════════ -->
+    <section class="nk-why-section">
+        <div class="wrap">
+            <div th:replace="~{fragments/components :: sectionHeader(
+                'Miért velünk',
+                'Miért krétafestékkel, miért velünk?',
+                null
+            )}"></div>
+            <div class="nk-why-grid">
+                <div class="nk-why-item">
+                    <img class="nk-why-item__icon" src="/design/assets/icons/idea.png" alt="" width="48" height="48">
+                    <h3 class="nk-why-item__title">Tényleg egyszerű, nem tudom elrontani!</h3>
+                    <p class="nk-why-item__desc">A krétafesték csiszolás és alapozás nélkül tapad szinte bármire. Pár óra alatt látványos eredményt érsz el — kezdőként is bátran belevághatsz.</p>
+                    <a href="/butorfestes-kezdoknek" class="btn-link">Mutasd, hogyan kezdjem?</a>
+                </div>
+                <div class="nk-why-item">
+                    <img class="nk-why-item__icon" src="/design/assets/icons/house.png" alt="" width="48" height="48">
+                    <h3 class="nk-why-item__title">Nem akarok rumlit és koszt a lakásban!</h3>
+                    <p class="nk-why-item__desc">Nincs porzó csiszolás, nincs büdös hígító — a krétafesték vízbázisú, beltérben is kényelmesen, tisztán használható.</p>
+                    <a href="/termekkategoria/kretafestek-annie-sloan-chalk-paint/" class="btn-link">Megnézem a festékeket</a>
+                </div>
+                <div class="nk-why-item">
+                    <img class="nk-why-item__icon" src="/design/assets/icons/brush.png" alt="" width="48" height="48">
+                    <h3 class="nk-why-item__title">Félek, hogy nem jól választok színt!</h3>
+                    <p class="nk-why-item__desc">Színkártyák és színminták segítenek dönteni, mi pedig személyesen is tanácsot adunk — így biztosra mehetsz a színválasztásban.</p>
+                    <a href="/termekkategoria/festek-szinkartya-szinminta/" class="btn-link">Megnézem a színmintákat</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         BEGINNER DOWNLOAD — free publication (static)
+    ════════════════════════════════════════════════════════════ -->
+    <section class="nk-download-section">
+        <div class="wrap">
+            <div class="nk-download">
+                <div class="nk-download__text">
+                    <div class="nk-download__eyebrow">Kezdőknek</div>
+                    <h2 class="nk-download__title">Töltsd le ingyenes kiadványunkat!</h2>
+                    <blockquote class="nk-download__quote">„A krétafestékkel bárki képes gyönyörű, tartós eredményt elérni — csiszolás és alapozás nélkül."</blockquote>
+                    <p class="nk-download__desc">Összeszedtük a legfontosabb tudnivalókat, hogy magabiztosan vágj bele az első bútorod felújításába.</p>
+                    <a href="/butorfestes-kezdoknek" class="btn btn-primary">Érdekel a kiadvány</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         IN-STORE — showroom / personal advice (static)
+    ════════════════════════════════════════════════════════════ -->
+    <section class="nk-store-section">
+        <div class="wrap">
+            <div class="nk-store">
+                <div class="nk-store__img" aria-hidden="true">
+                    <div class="nk-store__img-tag">Biatorbágy · Csillag u. 7.</div>
+                </div>
+                <div class="nk-store__text">
+                    <div class="nk-store__eyebrow">Bolt</div>
+                    <h2 class="nk-store__title">Kérj tanácsot, szívesen segítünk!</h2>
+                    <p class="nk-store__para">
+                        Biatorbágyi bemutatótermünkben személyesen is megnézheted a festékeket és a
+                        színeket, kézbe veheted az eszközöket, és feltehetsz minden kérdést. Hiszünk a
+                        fenntarthatóságban és a személyes odafigyelésben — nálunk nem eladni akarunk,
+                        hanem segíteni, hogy sikerüljön.
+                    </p>
+                    <a href="/latvanymuhely" class="btn btn-secondary">Megnézem a boltot!</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
          WORKSHOP CARD — real data from home.nextWorkshop (nullable)
     ════════════════════════════════════════════════════════════ -->
     <section class="nk-workshop-section">
         <div class="wrap">
             <div th:replace="~{fragments/components :: sectionHeader(
-                'Workshopok',
+                'Személyes Workshopok',
                 'Tanulj velünk — egy nap, egy bútor, sok nevetés.',
                 null
             )}"></div>
+
+            <ul class="nk-workshop-benefits">
+                <li>Kézzel foghatóan megtanulod a krétafestés alapjait.</li>
+                <li>Kipróbálod a technikákat: wax, transzfer, stencil, öregítés.</li>
+                <li>Minden anyagot és eszközt mi biztosítunk.</li>
+                <li>Kis létszámú, oldott hangulatú csoportban dolgozol.</li>
+                <li>Hazaviszed a saját kezűleg felújított darabodat.</li>
+            </ul>
 
             <!-- Upcoming workshop (nextWorkshop != null) -->
             <div class="nk-workshop" th:if="${home.nextWorkshop != null}">
@@ -173,34 +288,85 @@
 
 
     <!-- ═══════════════════════════════════════════════════════
-         STORY ROW — static editorial teaser
-         No blog backend yet — generic on-brand copy linking to /workshopok.
+         LATEST BLOG POSTS — real data (latestPosts, first 3)
     ════════════════════════════════════════════════════════════ -->
-    <section class="nk-story-section">
+    <section class="nk-latest-section" th:if="${latestPosts != null and !latestPosts.isEmpty()}">
         <div class="wrap">
-            <div class="nk-story">
+            <div th:replace="~{fragments/components :: sectionHeader(
+                'Tudástár',
+                'Válogatás a legfrissebb blogcikkeinkből',
+                null
+            )}"></div>
 
-                <!-- Photo placeholder (left) -->
-                <div class="nk-story__img" aria-hidden="true">
-                    <div class="nk-story__img-tag">Műhely · Budapest</div>
-                </div>
+            <div class="nk-blog-grid">
+                <th:block th:each="post, s : ${latestPosts}" th:if="${s.index < 3}">
+                    <div th:replace="~{fragments/components :: blogCard(${post})}"></div>
+                </th:block>
+            </div>
 
-                <!-- Editorial text (right) -->
-                <div class="nk-story__text">
-                    <div class="nk-story__eyebrow">Bútorfelújítás tudásanyagok</div>
-                    <h2 class="nk-story__title">Bútordíszítés házilag. Így újítsd fel a bútoraidat kreatívan.</h2>
-                    <p class="nk-story__para">
-                        Idővel a legszebb asztalka vagy szekrény is megkopik, de az is lehet,
-                        hogy az ízlésünk változott meg, vagy éppen a lakás berendezését cseréltük le —
-                        és az adott darab már nem illik a meglévő bútoraink közé.
-                    </p>
-                    <p class="nk-story__para">
-                        Blogcikkek és részletes tutorial videók bútorfestés, bútorfelújítás és
-                        lakberendezés témában. Kéthetente új cikkel és workshopajánlóval várunk.
-                    </p>
-                    <a href="/workshopok" class="btn btn-secondary">Megyek olvasni, inspirálódni</a>
-                </div>
+            <div class="nk-latest__more">
+                <a href="/blog" class="btn btn-secondary">Megnézem a többi cikket is!</a>
+            </div>
+        </div>
+    </section>
 
+
+    <!-- ═══════════════════════════════════════════════════════
+         CLOSING CTA BANNER (static)
+    ════════════════════════════════════════════════════════════ -->
+    <section class="nk-cta-banner">
+        <div class="wrap">
+            <h2 class="nk-cta-banner__title">Festeni akarok!</h2>
+            <p class="nk-cta-banner__sub">Válaszd ki a festéket, a színt és az eszközöket — a többit már tudod.</p>
+            <a href="/termekkategoria/kretafestek-annie-sloan-chalk-paint/" class="btn btn-primary">Irány a webshop</a>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         FAQ — curated homepage subset (static, native <details>)
+    ════════════════════════════════════════════════════════════ -->
+    <section class="nk-faq-section">
+        <div class="wrap">
+            <div th:replace="~{fragments/components :: sectionHeader(
+                'GYIK',
+                'Gyakran ismételt kérdések',
+                'A leggyakoribb kérdésekre itt válaszolunk — a teljes lista a GYIK oldalon.'
+            )}"></div>
+
+            <div class="nk-faq">
+                <details class="nk-faq__item">
+                    <summary>Van fizikai boltotok?</summary>
+                    <p>Igen — Biatorbágyon, a Csillag utca 7. alatt van a bemutatótermünk, ahol személyesen is megnézheted a festékeket és a színeket.</p>
+                </details>
+                <details class="nk-faq__item">
+                    <summary>Milyen fizetési módokat fogadtok el?</summary>
+                    <p>Bankkártyás fizetés, banki átutalás és boltban készpénz vagy kártya — ahogy neked kényelmes.</p>
+                </details>
+                <details class="nk-faq__item">
+                    <summary>Segítetek a színválasztásban?</summary>
+                    <p>Persze. Színkártyák és színminták segítenek dönteni, és szívesen adunk személyes tanácsot boltban vagy e-mailben.</p>
+                </details>
+                <details class="nk-faq__item">
+                    <summary>Kezdő vagyok — honnan tudom, mit vegyek?</summary>
+                    <p>Nézd meg a „Bútorfestés kezdőknek" oldalunkat és a kezdőcsomagjainkat: mindent tartalmaznak az első bútorod felújításához.</p>
+                </details>
+                <details class="nk-faq__item">
+                    <summary>Csiszolni és alapozni kell a festés előtt?</summary>
+                    <p>A legtöbb felületen nem. A krétafesték csiszolás és alapozás nélkül tapad — pont ettől olyan egyszerű és tiszta.</p>
+                </details>
+                <details class="nk-faq__item">
+                    <summary>Online vagy boltban rendeljek?</summary>
+                    <p>Ahogy neked jobb: a webshopból az egész országba szállítunk, a boltban pedig személyesen is átveheted a termékeket.</p>
+                </details>
+                <details class="nk-faq__item">
+                    <summary>Beváltható az ajándékutalvány workshopra?</summary>
+                    <p>Igen, az ajándékutalvány a webshopos termékekre és a workshopokra egyaránt felhasználható.</p>
+                </details>
+            </div>
+
+            <div class="nk-latest__more">
+                <a href="/gyakran-ismetelt-kerdesek" class="btn-link">Összes kérdés »</a>
             </div>
         </div>
     </section>
