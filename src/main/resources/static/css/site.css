@@ -1576,7 +1576,8 @@ aside.sum .ship { font-size: var(--nk-fs-caption); color: var(--nk-fg-subtle); m
 
 /* Beginner download */
 .nk-download-section { padding: var(--nk-space-9) 0; background: var(--nk-bg); }
-.nk-download { background: var(--nk-yellow-50); border-radius: var(--nk-radius-md); padding: var(--nk-space-8); }
+.nk-download { background: var(--nk-yellow-50); border-radius: var(--nk-radius-md); padding: var(--nk-space-8); display: grid; grid-template-columns: 240px 1fr; gap: var(--nk-space-8); align-items: center; }
+.nk-download__img { width: 100%; max-width: 240px; border-radius: var(--nk-radius-md); display: block; }
 .nk-download__text { max-width: 62ch; }
 .nk-download__eyebrow { font-size: var(--nk-fs-caption); letter-spacing: var(--nk-tracking-wide); text-transform: uppercase; font-weight: 600; color: var(--nk-fg-subtle); }
 .nk-download__title { font-family: var(--nk-font-serif); font-size: 2rem; margin: 8px 0 12px; }
@@ -1630,4 +1631,6 @@ aside.sum .ship { font-size: var(--nk-fs-caption); color: var(--nk-fg-subtle); m
 @media (max-width: 900px) {
     .nk-pillars, .nk-why-grid, .nk-blog-grid { grid-template-columns: 1fr; }
     .nk-store { grid-template-columns: 1fr; gap: 24px; }
+    .nk-download { grid-template-columns: 1fr; gap: 24px; justify-items: center; text-align: center; }
+    .nk-download__quote { text-align: left; }
 }
